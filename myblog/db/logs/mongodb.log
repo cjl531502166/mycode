@@ -81,3 +81,60 @@
 2017-11-02T18:25:57.766+0800 I STORAGE  [serviceShutdown] WiredTigerKVEngine shutting down
 2017-11-02T18:25:58.420+0800 I STORAGE  [serviceShutdown] shutdown: removing fs lock...
 2017-11-02T18:25:58.420+0800 I CONTROL  [serviceShutdown] now exiting
+
+
+***** SERVER RESTARTED *****
+
+
+Thu Nov 02 22:34:51.941 Trying to start Windows service 'MongoDB'
+Thu Nov 02 22:34:51.946 Service running
+Thu Nov 02 22:34:51.954 [initandlisten] MongoDB starting : pid=6392 port=27017 dbpath=F:\html\codestudy\mycode.git\trunk\myblog\db 32-bit host=PC-20160515CTVC
+Thu Nov 02 22:34:51.954 [initandlisten] 
+Thu Nov 02 22:34:51.954 [initandlisten] ** NOTE: This is a 32 bit MongoDB binary.
+Thu Nov 02 22:34:51.954 [initandlisten] **       32 bit builds are limited to less than 2GB of data (or less with --journal).
+Thu Nov 02 22:34:51.954 [initandlisten] **       See http://dochub.mongodb.org/core/32bit
+Thu Nov 02 22:34:51.954 [initandlisten] 
+Thu Nov 02 22:34:51.955 [initandlisten] db version v2.4.5
+Thu Nov 02 22:34:51.955 [initandlisten] git version: a2ddc68ba7c9cee17bfe69ed840383ec3506602b
+Thu Nov 02 22:34:51.955 [initandlisten] build info: windows sys.getwindowsversion(major=6, minor=0, build=6002, platform=2, service_pack='Service Pack 2') BOOST_LIB_VERSION=1_49
+Thu Nov 02 22:34:51.955 [initandlisten] allocator: system
+Thu Nov 02 22:34:51.955 [initandlisten] options: { config: "F:\html\codestudy\mycode.git\trunk\myblog\db\MongoDb.conf", dbpath: "F:\html\codestudy\mycode.git\trunk\myblog\db", journal: "true", logappend: "true", logpath: "F:\html\codestudy\mycode.git\trunk\myblog\db\logs\MongoDb.Log", port: 27017, quiet: "true", service: true }
+Thu Nov 02 22:34:52.172 [initandlisten] journal dir=F:\html\codestudy\mycode.git\trunk\myblog\db\journal
+Thu Nov 02 22:34:52.174 [initandlisten] recover : no journal files present, no recovery needed
+Thu Nov 02 22:34:52.765 [FileAllocator] allocating new datafile F:\html\codestudy\mycode.git\trunk\myblog\db\local.ns, filling with zeroes...
+Thu Nov 02 22:34:52.765 [FileAllocator] creating directory F:\html\codestudy\mycode.git\trunk\myblog\db\_tmp
+Thu Nov 02 22:34:52.837 [FileAllocator] done allocating datafile F:\html\codestudy\mycode.git\trunk\myblog\db\local.ns, size: 16MB,  took 0.07 secs
+Thu Nov 02 22:34:52.968 [FileAllocator] allocating new datafile F:\html\codestudy\mycode.git\trunk\myblog\db\local.0, filling with zeroes...
+Thu Nov 02 22:34:53.034 [FileAllocator] done allocating datafile F:\html\codestudy\mycode.git\trunk\myblog\db\local.0, size: 16MB,  took 0.064 secs
+Thu Nov 02 22:34:53.037 [initandlisten] command local.$cmd command: { create: "startup_log", size: 10485760, capped: true } ntoreturn:1 keyUpdates:0  reslen:37 271ms
+Thu Nov 02 22:34:53.041 [websvr] admin web console waiting for connections on port 28017
+Thu Nov 02 22:34:53.041 [initandlisten] waiting for connections on port 27017
+Fri Nov 03 00:47:24.484 [conn10] command local.$cmd command: { dbstats: 1.0, scale: null } ntoreturn:1 keyUpdates:0 locks(micros) r:275427 reslen:248 275ms
+Fri Nov 03 00:48:52.014 [FileAllocator] allocating new datafile F:\html\codestudy\mycode.git\trunk\myblog\db\admin.ns, filling with zeroes...
+Fri Nov 03 00:48:52.178 [FileAllocator] done allocating datafile F:\html\codestudy\mycode.git\trunk\myblog\db\admin.ns, size: 16MB,  took 0.162 secs
+Fri Nov 03 00:48:52.375 [FileAllocator] allocating new datafile F:\html\codestudy\mycode.git\trunk\myblog\db\admin.0, filling with zeroes...
+Fri Nov 03 00:48:52.433 [FileAllocator] done allocating datafile F:\html\codestudy\mycode.git\trunk\myblog\db\admin.0, size: 16MB,  took 0.057 secs
+Fri Nov 03 00:48:52.436 [FileAllocator] allocating new datafile F:\html\codestudy\mycode.git\trunk\myblog\db\admin.1, filling with zeroes...
+Fri Nov 03 00:48:52.468 [conn13] build index admin.users { _id: 1 }
+Fri Nov 03 00:48:52.525 [conn13] build index done.  scanned 0 total records. 0.057 secs
+Fri Nov 03 00:48:52.526 [conn13] command admin.$cmd command: { create: "users" } ntoreturn:1 keyUpdates:0  reslen:37 570ms
+Fri Nov 03 00:48:52.567 [FileAllocator] done allocating datafile F:\html\codestudy\mycode.git\trunk\myblog\db\admin.1, size: 32MB,  took 0.13 secs
+Fri Nov 03 00:49:02.832 [conn14] query admin.users query: { orderby: { _id: -1.0 }, $query: {} } ntoreturn:5 ntoskip:0 nscanned:0 keyUpdates:0 locks(micros) r:87380 nreturned:0 reslen:20 101ms
+Fri Nov 03 00:58:48.611 [conn41] query local.startup_log query: { orderby: { _id: -1.0 }, $query: {} } ntoreturn:5 ntoskip:0 nscanned:1 scanAndOrder:1 keyUpdates:0 locks(micros) r:180847 nreturned:1 reslen:1013 180ms
+Fri Nov 03 00:58:48.611 [conn32] query local.startup_log query: { orderby: { _id: -1.0 }, $query: {} } ntoreturn:5 ntoskip:0 nscanned:1 scanAndOrder:1 keyUpdates:0 locks(micros) r:181395 nreturned:1 reslen:1013 181ms
+Fri Nov 03 01:10:45.920 [serviceShutdown] got SERVICE_CONTROL_STOP request from Windows Service Control Manager, will terminate after current cmd ends
+Fri Nov 03 01:10:45.982 [serviceShutdown] now exiting
+Fri Nov 03 01:10:45.982 dbexit: 
+Fri Nov 03 01:10:45.982 [serviceShutdown] shutdown: going to close listening sockets...
+Fri Nov 03 01:10:45.982 [serviceShutdown] closing listening socket: 584
+Fri Nov 03 01:10:45.982 [serviceShutdown] closing listening socket: 588
+Fri Nov 03 01:10:45.982 [serviceShutdown] shutdown: going to flush diaglog...
+Fri Nov 03 01:10:45.982 [serviceShutdown] shutdown: going to close sockets...
+Fri Nov 03 01:10:45.982 [serviceShutdown] shutdown: waiting for fs preallocator...
+Fri Nov 03 01:10:45.982 [serviceShutdown] shutdown: lock for final commit...
+Fri Nov 03 01:10:45.982 [serviceShutdown] shutdown: final commit...
+Fri Nov 03 01:10:45.982 [serviceShutdown] shutdown: closing all files...
+Fri Nov 03 01:10:45.998 [serviceShutdown] closeAllFiles() finished
+Fri Nov 03 01:10:46.029 [serviceShutdown] journalCleanup...
+Fri Nov 03 01:10:46.029 [serviceShutdown] removeJournalFiles
+Fri Nov 03 01:10:46.029 [serviceShutdown] shutdown: removing fs lock...

@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('myblog:server');
 var http = require('http');
 var mongoose  = require('mongoose');
+mongoose.Promise = require("bluebird");
 /**
  * Get port from environment and store in Express.
  */
@@ -86,7 +87,7 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  mongoose.connect('mongodb://localhost:27017/test',{useMongoClient:true},function (err) {
+  mongoose.connect('mongodb://localhost:27017/admin',{useMongoClient:true},function (err) {
     if(err) {
       console.log(err)
     }else{
