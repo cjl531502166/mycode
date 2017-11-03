@@ -1,11 +1,12 @@
 var express = require('express');
+var Cookies = require('cookies');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var swig = require('swig');
-
+var User = require('./models/User');
 var index = require('./routes/index');
 var api = require('./routes/api');
 var admin = require('./routes/admin');
@@ -24,6 +25,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 设置cookies
+app.use(function (req, res, next) {
+  req.cookies = new Cookies(req,res);
+  req.userInfo = {}
+  if(req.cookies.get('userInfo')){
+    try {
+      req.userInfo = JSON.parse(req.cookies.get('userInfo'));
+      User.findOne({ _id: req.userInfo.uid }).then(function (result) {
+        req.userInfo.isAdmin = result.isAdmin
+        if (req.userInfo.isAdmin){
+          next();
+        }else{
+          res.send('您不是管理员')
+        }
+      })
+    } catch (error) {
+      next(err);
+    }
+  }else{
+    next();
+  }
+})
 app.use('/', index);
 app.use('/api', api);
 app.use('/admin', admin);
