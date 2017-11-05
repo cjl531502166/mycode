@@ -27,12 +27,11 @@ router.post('/login', function(req, res, next) {
       responseData.code = 2;
       responseData.message = '用户名或者密码错误';
     } else{
-      if(keeplogin){
-        req.cookies.set('userInfo',JSON.stringify({
-            'uid':userInfo._id,
-            'username': userInfo.username
-        }))
-      }
+      req.cookies.set('userInfo', JSON.stringify({
+        'uid': userInfo._id,
+        'username': userInfo.username,
+        'keepLogin':keeplogin
+      }))
       responseData.message = '登陆成功';
       responseData.useInfo = {
         'uid': userInfo._id,

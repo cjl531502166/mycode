@@ -12,7 +12,7 @@ layui.use('form', function () {
                 if(result.code){
                     layer.msg(result.message);
                 }else{
-                   
+                   window.location.reload();
                 }
             }
         })
