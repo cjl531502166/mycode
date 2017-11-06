@@ -42,5 +42,9 @@ router.post('/login', function(req, res, next) {
   })
 });
 //退出登录
-
+router.post('/logout',function (req,res,next) {
+  req.cookies.set('userInfo',null);
+  responseData.message = '退出登录';
+  res.json(responseData);
+})
 module.exports = router;

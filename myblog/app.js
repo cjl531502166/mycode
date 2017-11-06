@@ -34,11 +34,7 @@ app.use(function (req, res, next) {
       req.userInfo = JSON.parse(req.cookies.get('userInfo'));
       User.findOne({ _id: req.userInfo.uid }).then(function (result) {
         req.userInfo.isAdmin = result.isAdmin
-        if (req.userInfo.isAdmin){
-          next();
-        }else{
-          res.send('您不是管理员')
-        }
+        next();
       })
     } catch (error) {
       next(err);

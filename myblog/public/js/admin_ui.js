@@ -12,7 +12,7 @@ layui.use('form', function () {
                 if(result.code){
                     layer.msg(result.message);
                 }else{
-                   window.location.reload();
+                    window.location.reload();
                 }
             }
         })
@@ -20,7 +20,13 @@ layui.use('form', function () {
     });
 });
 
-//面板也交互
+//后台内容面板交互
 layui.use('element', function () {
     var element = layui.element;
+    $('#logOut').on('click',function () {
+        $.post('/api/logout',{},function (data) {
+            
+            window.location.reload();
+        })
+    })
 });
