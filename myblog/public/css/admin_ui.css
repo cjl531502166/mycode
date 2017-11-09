@@ -25,6 +25,11 @@
     background: #fff;
     color:#333!important;
 }
-.layui-form{
-    
+.layui-header .layui-layout-right{
+   right: 30px;
+}
+
+.blog-manager{
+    padding-left: 10px;
+    color:blue;
 }

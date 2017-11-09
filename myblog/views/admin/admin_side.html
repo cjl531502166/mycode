@@ -1,0 +1,33 @@
+<div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+        <ul class="layui-nav layui-nav-tree" lay-filter="nav-control">
+            {% if userInfo.isAdmin %}
+                <li id='tab_0' class="layui-nav-item layui-nav-itemed on">
+                    <a class="" href="/admin/page?pid=pageId_0" data-id='tab_0'>用户列表</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">分类管理</a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" data-id='tab_1'>分类列表</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-id='tab_2'>添加分类</a>
+                        </dd>
+                    </dl>
+                </li>
+            {% endif %}
+            <li class="layui-nav-item">
+                <a href="javascript:">内容管理</a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="javascript:;" data-id='tab_3'>内容列表</a>
+                    </dd>
+                    <dd>
+                        <a href="javascript:;" data-id='tab_4'>内容添加</a>
+                    </dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</div>

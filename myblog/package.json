@@ -9,7 +9,6 @@
     "bluebird": "^3.5.1",
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
-    "cookies": "^0.7.1",
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "mongoose": "^4.12.5",

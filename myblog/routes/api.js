@@ -27,11 +27,17 @@ router.post('/login', function(req, res, next) {
       responseData.code = 2;
       responseData.message = '用户名或者密码错误';
     } else{
-      req.cookies.set('userInfo', JSON.stringify({
-        'uid': userInfo._id,
-        'username': userInfo.username,
-        'keepLogin':keeplogin
-      }))
+      if(keeplogin){
+        res.cookie('userInfo', {
+          'uid': userInfo._id,
+          'username': userInfo.username
+        }, { maxAge: 1000 * 60 * 60})
+      }else{
+        res.cookie('userInfo', {
+          'uid': userInfo._id,
+          'username': userInfo.username
+        })
+      }
       responseData.message = '登陆成功';
       responseData.useInfo = {
         'uid': userInfo._id,
@@ -43,8 +49,14 @@ router.post('/login', function(req, res, next) {
 });
 //退出登录
 router.post('/logout',function (req,res,next) {
-  req.cookies.set('userInfo',null);
-  responseData.message = '退出登录';
-  res.json(responseData);
+  res.clearCookie('userInfo')
+  res.end()
+})
+
+
+router.get('/user',function (req,res,next) {
+  var req_param = req.body.pageId;
+  console.log(req_param); 
+  res.json(responseData)
 })
 module.exports = router;

@@ -1,4 +1,33 @@
 {% extends './layout_admin.html' %}
+{% block header %}{% include './admin_header.html' %}{% endblock %}
+{% block side %}{% include './admin_side.html' %}{% endblock %}
 {% block content %}
-     
+    
+    <div class="layui-body" style='padding:15px;'>
+        <blockquote class='layui-elem-quote'>
+            <h1 style="font-size:20px">你好，
+                {% if userInfo.isAdmin %}
+                    管理员<em class='blog-manager'>{{userInfo.username}}</em>
+                {% else %}
+                    欢迎光临我的博客
+                {%endif%}
+            </h1>
+        </blockquote>
+        <div class="layui-collapse">
+            {% if userInfo.isAdmin %}
+                <div class="layui-colla-item">
+                    <h2 class="layui-colla-title">用户列表</h2>
+                    <div class="layui-colla-content layui-show"></div>
+                </div>
+                <div class="layui-colla-item">
+                    <h2 class="layui-colla-title">分类列表</h2>
+                    <div class="layui-colla-content layui-show"></div>
+                </div>
+            {% endif %}
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">内容列表</h2>
+                <div class="layui-colla-content layui-show"></div>
+            </div>
+        </div>
+    </div>
 {%endblock%}
