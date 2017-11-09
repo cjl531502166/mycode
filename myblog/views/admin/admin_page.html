@@ -12,26 +12,28 @@ include './admin_side.html' %}{% endblock %} {% block content %}
             <li class="layui-this" lay-id='tab_0'>用户列表</li>
         </ul>
         <div class="layui-tab-content">
-            <table class="layui-table">
-                <thead>
-                    <tr>
-                        <th>用户ID</th>
-                        <th>用户名</th>
-                        <th>是否是管理员</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for user in users %}
-                    <tr>
-                        <td>{{user._id.toString()}}</td>
-                        <td>{{user.username}}</td>
-                        <td>
-                            {% if user.isAdmin %}是{% else %}否{% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <div class="layui-tab-item layui-show">
+                <table id="tab_0" class="layui-table">
+                    <thead>
+                        <tr>
+                            <th>用户ID</th>
+                            <th>用户名</th>
+                            <th>是否是管理员</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{user._id.toString()}}</td>
+                            <td>{{user.username}}</td>
+                            <td>
+                                {% if user.isAdmin %}是{% else %}否{% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

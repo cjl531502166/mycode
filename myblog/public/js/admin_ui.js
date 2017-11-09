@@ -27,31 +27,32 @@ $('#logOut').on('click', function () {
 //后台内容面板交互
 layui.use('element', function () {
     var layerElem = layui.element;
+    //侧栏tab选项卡添加
     layerElem.on('nav(nav-control)',function (ele) {
         var data_id = $(this).find("a").data('id');
         if(!$(this).hasClass('on')){
             layerElem.tabAdd('content', {
                 title: ele[0].innerText,
-                content: data_id,
+                content:"<table class='layui-table' id="+data_id+"></table>",
                 id: data_id
             });
         }
         layerElem.tabChange('content', data_id)
         $(this).attr('id',data_id).addClass('on');
     })
-    //侧栏tab选项卡切换
     layerElem.on('tabDelete(content)',function (data) {
         var id = data.index;
         $('#tab_'+id).removeClass('on');
     });
     layerElem.on('tab(content)',function (data) {
-        var pageId = 'page_' + data.index;
+        var pageId = 'pageId_' + data.index;
         $.ajax({
             url:'/api/user',
             type:'get',
-            data:pageId,
-            success:function (data) {
-                console.log(data)
+            data: {pid:pageId},
+            dataType:'json',
+            success:function (res) {
+                
             }
         })
     })

@@ -22,15 +22,15 @@ router.get('/index',function (req,res) {
     res.render('admin/admin_index', { title: '博客管理后台', userInfo: req.userInfo});
 })
 router.get('/page',function (req,res) {
-    var pageId = req.query.pid;
-    if(pageId==='pageId_0'){
+    var req_pid = req.query.pid;
+    if (req_pid==='pageId_0'){
         User.find().then(function (users) {
             res.render('admin/admin_page', {
                 title: '博客管理后台',
                 userInfo: req.userInfo,
                 users:users
             })
-        })
+        });
     }
 })
 module.exports = router;

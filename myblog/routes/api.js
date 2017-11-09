@@ -55,8 +55,34 @@ router.post('/logout',function (req,res,next) {
 
 
 router.get('/user',function (req,res,next) {
-  var req_param = req.body.pageId;
-  console.log(req_param); 
-  res.json(responseData)
+  var req_pid = req.query.pid;
+  switch (req_pid) {
+    case "pageId_0":
+      User.find().then(function (users) {
+        res.send({
+          users: users
+        })
+      });
+      break;
+    case "pageId_1":{
+      res.end();
+      break;
+    }
+    case "pageId_2":{
+      res.end();
+      break;
+    }
+    case "pageId_3":{
+      res.end();
+      break;
+    }
+    case "pageId_4":{
+      res.end();
+      break;
+    }
+    default:
+      break;
+  }
+  
 })
 module.exports = router;
