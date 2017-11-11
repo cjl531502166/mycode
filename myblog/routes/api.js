@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
+var Category = require('../models/Category');
 var responseData;
 router.use(function (req,res,next) {
   responseData = {
@@ -51,38 +52,20 @@ router.post('/login', function(req, res, next) {
 router.post('/logout',function (req,res,next) {
   res.clearCookie('userInfo')
   res.end()
-})
+});
 
-
-router.get('/user',function (req,res,next) {
-  var req_pid = req.query.pid;
-  switch (req_pid) {
-    case "pageId_0":
-      User.find().then(function (users) {
-        res.send({
-          users: users
-        })
-      });
-      break;
-    case "pageId_1":{
-      res.end();
-      break;
+//添加分类
+router.get('/category/add',function (req,res) {
+  var category = req.query.category;
+  Category.findOne({name:category}).then(function (cateList) {
+    if(cateList){
+      responseData.code = 1;
+      responseData.message = '已存在同名分类';
+      // return new Promise.reject();
+    }else{
+      new Category({name:category}).save();
     }
-    case "pageId_2":{
-      res.end();
-      break;
-    }
-    case "pageId_3":{
-      res.end();
-      break;
-    }
-    case "pageId_4":{
-      res.end();
-      break;
-    }
-    default:
-      break;
-  }
-  
+    res.json(responseData);
+  })
 })
 module.exports = router;

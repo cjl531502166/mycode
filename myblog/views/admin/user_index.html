@@ -7,18 +7,19 @@ include './admin_side.html' %}{% endblock %} {% block content %}
             {% else %} 欢迎光临我的博客 {%endif%}
         </h1>
     </blockquote>
-    <div class="layui-tab layui-tab-card" lay-allowClose="true" lay-filter='content' style='margin-top:20px; '>
+    <div class="layui-tab layui-tab-card" lay-filter='content' style='margin-top:20px; '>
         <ul class="layui-tab-title">
             <li class="layui-this" lay-id='tab_0'>用户列表</li>
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <table id="tab_0" class="layui-table">
+                <table class="layui-table">
                     <thead>
                         <tr>
                             <th>用户ID</th>
                             <th>用户名</th>
                             <th>是否是管理员</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,6 +30,7 @@ include './admin_side.html' %}{% endblock %} {% block content %}
                             <td>
                                 {% if user.isAdmin %}是{% else %}否{% endif %}
                             </td>
+                            <td><a class='layui-btn layui-btn-mini layui-btn-danger' href="admin/delete?id={{user.id}}">删除</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

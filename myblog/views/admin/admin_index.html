@@ -4,7 +4,7 @@
 {% block content %}
     
     <div class="layui-body" style='padding:15px;'>
-        <blockquote class='layui-elem-quote'>
+        <blockquote class='layui-elem-quote' style="margin-bottom:40px;">
             <h1 style="font-size:20px">你好，
                 {% if userInfo.isAdmin %}
                     管理员<em class='blog-manager'>{{userInfo.username}}</em>
@@ -13,21 +13,47 @@
                 {%endif%}
             </h1>
         </blockquote>
-        <div class="layui-collapse">
-            {% if userInfo.isAdmin %}
-                <div class="layui-colla-item">
-                    <h2 class="layui-colla-title">用户列表</h2>
-                    <div class="layui-colla-content layui-show"></div>
+        {% if userInfo.isAdmin %}
+            <fieldset class="layui-elem-field">
+                <legend class='legend-head'>用户列表概览</legend>
+                <div class='layui-field-box'>
+                    <table class='layui-table'>
+                        <thead>
+                            <th>用户名</th>
+                            <th>用户ID</th>
+                            <th>是否是管理员</th>
+                        </thead>
+                        <tbody>
+                    
+                        </tbody>
+                    </table>
                 </div>
-                <div class="layui-colla-item">
-                    <h2 class="layui-colla-title">分类列表</h2>
-                    <div class="layui-colla-content layui-show"></div>
+            </fieldset>
+            <fieldset class="layui-elem-field">
+                <legend class='legend-head'>分类列表概览</legend>
+                <div class='layui-field-box'>
+                    <table class='layui-table'>
+                        <thead>
+                            
+                        <tbody>
+            
+                        </tbody>
+                    </table>
                 </div>
-            {% endif %}
-            <div class="layui-colla-item">
-                <h2 class="layui-colla-title">内容列表</h2>
-                <div class="layui-colla-content layui-show"></div>
+            </fieldset>
+        {% endif %}
+        <fieldset class="layui-elem-field">
+            <legend class='legend-head'>内容列表概览</legend>
+            <div class='layui-field-box'>
+                <table class='layui-table'>
+                    <thead>
+                        
+                    </thead>
+                    <tbody>
+        
+                    </tbody>
+                </table>
             </div>
-        </div>
+        </fieldset>
     </div>
 {%endblock%}

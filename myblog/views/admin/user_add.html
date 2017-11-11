@@ -1,0 +1,25 @@
+{% extends './layout_admin.html' %} {% block header %}{% include './admin_header.html' %}{% endblock %} {% block side %}{%include './admin_side.html' %}{% endblock %}
+{% block content %}
+    <div class="layui-body" style='padding:15px;'>
+        <blockquote class='layui-elem-quote'>
+            <h1 style="font-size:20px">你好， {% if userInfo.isAdmin %} 管理员
+                <em class='blog-manager'>{{userInfo.username}}</em>
+                {% else %} 欢迎光临我的博客 {%endif%}
+            </h1>
+        </blockquote>
+        <h2 class="content-title">分类添加</h2>
+        <hr class="layui-bg-red">
+        <form class="layui-form layui-form-pane" action="" style="width:80%;margin-top:30px;">
+            <div class="layui-form-item">
+                <label class="layui-form-label">分类名称</label>
+                <div class="layui-input-block">
+                   <input type="text" name="category" required lay-verify="required" placeholder="请输入分类名称" class='layui-input'>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn" lay-submit lay-filter="addCate">添加</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </form>
+    </div>
+{%endblock%}

@@ -1,6 +1,8 @@
 var express = require('express');
+var mongoose = require('mongoose');
 var router = express.Router();
 var User = require('../models/User');
+var Category = require('../models/Category');
 var baseUrl;
 router.use(function (req, res, next) {
     baseUrl = req.baseUrl;
@@ -19,18 +21,48 @@ router.get('/index',function (req,res) {
         res.redirect(baseUrl + '/login')
         return;
     }
-    res.render('admin/admin_index', { title: '博客管理后台', userInfo: req.userInfo});
+    res.render('admin/admin_index', { title: '博客管理后台', userInfo: req.userInfo });
+    // mongoose.model.find().then(function (data) {
+    //     console.log(data);
+        
+    // })
 })
 router.get('/page',function (req,res) {
     var req_pid = req.query.pid;
-    if (req_pid==='pageId_0'){
-        User.find().then(function (users) {
-            res.render('admin/admin_page', {
+    switch (req_pid) {
+        case 'pageId_0':
+            User.find().then(function (users) {
+                res.render('admin/user_index', {
+                    pid: req_pid,
+                    title: '博客管理后台',
+                    userInfo: req.userInfo,
+                    users: users
+                })
+            });
+            break;
+        case 'pageId_1':
+            //查询分类
+            res.end();
+            break;
+        case 'pageId_2':
+            //添加分类
+            res.render('admin/user_add',{
+                pid:req_pid,
                 title: '博客管理后台',
-                userInfo: req.userInfo,
-                users:users
-            })
-        });
+                userInfo: req.userInfo
+            });
+            break;
+        case 'pageId_3':
+            //查询内容
+            res.end();
+            break;
+        case 'pageId_4':
+            //添加内容
+            res.end();
+            break;
+        default:
+            res.render('error');
+            break;
     }
 })
 module.exports = router;

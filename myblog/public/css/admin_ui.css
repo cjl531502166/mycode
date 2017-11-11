@@ -33,3 +33,16 @@
     padding-left: 10px;
     color:blue;
 }
+.legend-head{
+    font-size: 18px!important;
+}
+
+.layui-elem-field{
+    margin:40px auto;
+}
+
+.content-title{
+    margin-top:40px;
+    font-weight: normal;
+    font-size: 20px;
+}
