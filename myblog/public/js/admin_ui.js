@@ -1,9 +1,10 @@
 //注册layui 模块
-layui.use(['form','element','table'],function () {
+layui.use(['form', 'element', 'table','layedit'],function () {
     var mod_config = {
         form:layui.form,
         element:layui.element,
-        table:layui.table
+        table:layui.table,
+        layedit: layui.layedit
     }
 
     //登陆
@@ -30,6 +31,7 @@ layui.use(['form','element','table'],function () {
         })
     });
 
+
     //分类添加
     mod_config.form.on('submit(addCate)',function (data) {
         console.log(data);
@@ -39,10 +41,20 @@ layui.use(['form','element','table'],function () {
             dataType:'json',
             data:data.field,
             success:function (res) {
-
                 layer.msg(res.message)
             }
         })
         return false;
+    });
+    //内容添加
+    mod_config.layedit.set({
+        uploadImage: {
+            url: ''//图盘上传接口url
+        }
+    })
+    var index =  mod_config.layedit.build('contentEdit');
+    mod_config.layedit.sync(index);
+    mod_config.form.on('submit(addContent)',function (data) {
+        console.log(data);
     })
 })

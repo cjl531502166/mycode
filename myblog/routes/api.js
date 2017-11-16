@@ -29,10 +29,12 @@ router.post('/login', function(req, res, next) {
       responseData.message = '用户名或者密码错误';
     } else{
       if(keeplogin){
-        res.cookie('userInfo', {
+        res.cookie('userInfo', 
+        {
           'uid': userInfo._id,
           'username': userInfo.username
-        }, { maxAge: 1000 * 60 * 60})
+        },
+        {"maxAge": 1000 * 60 * 600})
       }else{
         res.cookie('userInfo', {
           'uid': userInfo._id,
@@ -61,11 +63,14 @@ router.get('/category/add',function (req,res) {
     if(cateList){
       responseData.code = 1;
       responseData.message = '已存在同名分类';
-      // return new Promise.reject();
+      return Promise.reject();
     }else{
       new Category({name:category}).save();
     }
     res.json(responseData);
   })
-})
+});
+//添加内容接口
+
+//图片上传接口
 module.exports = router;

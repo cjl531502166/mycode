@@ -22,10 +22,6 @@ router.get('/index',function (req,res) {
         return;
     }
     res.render('admin/admin_index', { title: '博客管理后台', userInfo: req.userInfo });
-    // mongoose.model.find().then(function (data) {
-    //     console.log(data);
-        
-    // })
 })
 router.get('/page',function (req,res) {
     var req_pid = req.query.pid;
@@ -42,13 +38,17 @@ router.get('/page',function (req,res) {
             break;
         case 'pageId_1':
             //查询分类
-            res.end();
+            Category.find().then(function (result) {
+                console.log(result);
+                res.end();
+            })
             break;
         case 'pageId_2':
             //添加分类
-            res.render('admin/user_add',{
+            res.render('admin/add_layout',{
                 pid:req_pid,
                 title: '博客管理后台',
+                column_headers:'添加分类',
                 userInfo: req.userInfo
             });
             break;
@@ -58,7 +58,12 @@ router.get('/page',function (req,res) {
             break;
         case 'pageId_4':
             //添加内容
-            res.end();
+            res.render('admin/add_layout', {
+                pid: req_pid,
+                title: '博客管理后台',
+                column_headers: '添加内容',
+                userInfo: req.userInfo
+            });
             break;
         default:
             res.render('error');

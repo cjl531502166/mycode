@@ -1,8 +1,10 @@
+<!-- 基础模板 -->
 {% extends './layout_admin.html' %}
+<!-- header模板 -->
 {% block header %}{% include './admin_header.html' %}{% endblock %}
-{% block side %}{% include './admin_side.html' %}{% endblock %}
+<!-- 侧栏模板 -->
+{% block side %}{%include './admin_side.html' %}{% endblock %}
 {% block content %}
-    
     <div class="layui-body" style='padding:15px;'>
         <blockquote class='layui-elem-quote' style="margin-bottom:40px;">
             <h1 style="font-size:20px">你好，
