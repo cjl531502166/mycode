@@ -34,27 +34,38 @@ layui.use(['form', 'element', 'table','layedit'],function () {
 
     //分类添加
     mod_config.form.on('submit(addCate)',function (data) {
-        console.log(data);
         $.ajax({
             url:'/api/category/add',
             type:'get',
             dataType:'json',
             data:data.field,
             success:function (res) {
-                layer.msg(res.message)
+                layer.msg(res.message);
             }
         })
         return false;
     });
     //内容添加
-    mod_config.layedit.set({
-        uploadImage: {
-            url: ''//图盘上传接口url
-        }
-    })
+    
     var index =  mod_config.layedit.build('contentEdit');
-    mod_config.layedit.sync(index);
     mod_config.form.on('submit(addContent)',function (data) {
-        console.log(data);
+        var postData;
+        postData = {
+            title:data.field.title,
+            content: mod_config.layedit.getContent(index),
+            descrip:data.field.descrip,
+            category:data.field.category,
+            file:data.field.file
+        }
+        $.ajax({
+            url:'/api/content/add',
+            type:'POST',
+            dataType:'json',
+            data:postData,
+            success:function (res) {
+                console.log(res);
+            }
+        })
+        return false;
     })
 })

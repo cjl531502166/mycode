@@ -38,9 +38,13 @@ router.get('/page',function (req,res) {
             break;
         case 'pageId_1':
             //查询分类
-            Category.find().then(function (result) {
-                console.log(result);
-                res.end();
+            Category.find().sort({_id: -1}).then(function (result) {
+                res.render('admin/category_list',{
+                    pid:req_pid,
+                    title:'博客管理后台',
+                    userInfo:req.userInfo,
+                    categories: result
+                })
             })
             break;
         case 'pageId_2':
@@ -58,12 +62,15 @@ router.get('/page',function (req,res) {
             break;
         case 'pageId_4':
             //添加内容
-            res.render('admin/add_layout', {
-                pid: req_pid,
-                title: '博客管理后台',
-                column_headers: '添加内容',
-                userInfo: req.userInfo
-            });
+            Category.find().then(function (categories) {
+                res.render('admin/add_layout', {
+                    pid: req_pid,
+                    title: '博客管理后台',
+                    column_headers: '添加内容',
+                    userInfo: req.userInfo,
+                    categories: categories
+                });
+            })
             break;
         default:
             res.render('error');
