@@ -1,3 +1,7 @@
+/* 公共样式 */
+.text-red{
+    color:red;
+}
 .login-main{
     overflow: hidden;
     width: 100%;
@@ -45,4 +49,8 @@
     margin-top:40px;
     font-weight: normal;
     font-size: 20px;
+}
+
+.operation{
+    width: 150px;
 }

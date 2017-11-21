@@ -24,7 +24,7 @@
                                 <th>用户ID</th>
                                 <th>用户名</th>
                                 <th>是否是管理员</th>
-                                <th>操作</th>
+                                <th class='operation'>操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -32,10 +32,14 @@
                             <tr>
                                 <td>{{user._id.toString()}}</td>
                                 <td>{{user.username}}</td>
+                                <td>{% if user.isAdmin %}是{% else %}否{% endif %}</td>
                                 <td>
-                                    {% if user.isAdmin %}是{% else %}否{% endif %}
+                                    <a data-id='{{user.id}}' class='layui-btn layui-btn-mini layui-btn-danger delUser' href="javascript:">删除</a>
+                                    {% if !(user.isAdmin) %}
+                                        <a id='setAdmin' data-user='{{user.username}}' data-id='{{user.id}}' class='layui-btn layui-btn-mini layui-btn-success' href="javascript:">设为管理员</a>
+                                    {% endif %}                                    
+                                    
                                 </td>
-                                <td><a class='layui-btn layui-btn-mini layui-btn-danger' href="admin/delete?id={{user.id}}">删除</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>

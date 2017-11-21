@@ -17,14 +17,14 @@
                     </dl>
                 </li>
             {% endif %}
-            <li class="layui-nav-item {% if pid =="pageId_3" || pid =="pageId_4" %}layui-nav-itemed{% endif %}">
+            <li class="layui-nav-item {% if pid =='pageId_3' || pid =='pageId_4' %}layui-nav-itemed{% endif %}">
                 <a href="javascript:">内容管理</a>
                 <dl class="layui-nav-child">
                     <dd>
-                        <a class="{% if pid == 'pageId_3' %}layui-this{%endif%}" href="/admin/page?pid=pageId_3">内容列表</a>
+                        <a class="{% if pid == 'pageId_3' %}layui-this{%endif%}" href="/admin/page?pid=pageId_3">文章列表</a>
                     </dd>
                     <dd>
-                        <a class="{% if pid == 'pageId_4' %}layui-this{%endif%}" href="/admin/page?pid=pageId_4">内容添加</a>
+                        <a class="{% if pid == 'pageId_4' %}layui-this{%endif%}" href="/admin/page?pid=pageId_4">添加文章</a>
                     </dd>
                 </dl>
             </li>

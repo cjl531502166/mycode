@@ -29,6 +29,7 @@ module.exports = new mongoose.Schema({
         type: String,
         default: ''
     },
+    file:String,
     //内容
     content: {
         type: String,

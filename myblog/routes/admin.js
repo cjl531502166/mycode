@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var router = express.Router();
 var User = require('../models/User');
 var Category = require('../models/Category');
+var Content = require('../models/Content');
 var baseUrl;
 router.use(function (req, res, next) {
     baseUrl = req.baseUrl;
@@ -25,6 +26,10 @@ router.get('/index',function (req,res) {
 })
 router.get('/page',function (req,res) {
     var req_pid = req.query.pid;
+    if(!req.cookies.userInfo){
+        res.redirect(baseUrl + '/login');
+        return;
+    }
     switch (req_pid) {
         case 'pageId_0':
             User.find().then(function (users) {
@@ -38,12 +43,12 @@ router.get('/page',function (req,res) {
             break;
         case 'pageId_1':
             //查询分类
-            Category.find().sort({_id: -1}).then(function (result) {
+            Category.find().sort({_id: -1}).then(function (category) {
                 res.render('admin/category_list',{
                     pid:req_pid,
                     title:'博客管理后台',
                     userInfo:req.userInfo,
-                    categories: result
+                    categories: category
                 })
             })
             break;
@@ -58,7 +63,15 @@ router.get('/page',function (req,res) {
             break;
         case 'pageId_3':
             //查询内容
-            res.end();
+            Content.find().sort({_id:-1}).populate(['category','user']).then(function (content) {
+                console.log(content);
+                res.render('admin/content_list',{
+                    pid:req_pid,
+                    title:'博客管理后台',
+                    userInfo:req.userInfo,
+                    contents: content
+                })
+            })
             break;
         case 'pageId_4':
             //添加内容
@@ -68,7 +81,8 @@ router.get('/page',function (req,res) {
                     title: '博客管理后台',
                     column_headers: '添加内容',
                     userInfo: req.userInfo,
-                    categories: categories
+                    categories: categories,
+                    description: req.body.descp
                 });
             })
             break;
