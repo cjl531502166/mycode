@@ -11,6 +11,7 @@ router.use(function (req, res, next) {
 })
 
 router.get('/login',function (req,res) {
+    
     if(req.cookies.userInfo){
        res.redirect(baseUrl+'/index')
        return;
@@ -22,7 +23,20 @@ router.get('/index',function (req,res) {
         res.redirect(baseUrl + '/login')
         return;
     }
-    res.render('admin/admin_index', { title: '博客管理后台', userInfo: req.userInfo });
+    Promise.all([
+        User.find().limit(3),
+        Category.find().limit(3),
+        Content.find().populate(['category', 'user']).limit(3)
+    ]).then(function (result) {
+        var [users,categories,contents] = result;
+        res.render('admin/admin_index', { 
+            title: '博客管理后台',
+            userInfo: req.userInfo,
+            users: users,
+            categories:categories,
+            contents:contents
+        });
+    })    
 })
 router.get('/page',function (req,res) {
     var req_pid = req.query.pid;

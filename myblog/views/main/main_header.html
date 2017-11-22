@@ -1,0 +1,22 @@
+<div class="header">
+    <div class="hd-top"></div>
+    <div class="hd-container">
+        <div class="logo">
+            这里是logo
+        </div>
+        <ul class='nav'>
+            <li>
+                {% if !curr %}
+                    <a href="/" class='curr'>首页</a>
+                {% else %}
+                    <a href="/">首页</a>
+                {% endif %}
+            </li>
+            {% for category in categories %}
+            <li>
+                <a href="/article/detail?id={{category.id}}">{{category.name}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

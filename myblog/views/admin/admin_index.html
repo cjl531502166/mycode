@@ -3,59 +3,107 @@
 <!-- header模板 -->
 {% block header %}{% include './admin_header.html' %}{% endblock %}
 <!-- 侧栏模板 -->
-{% block side %}{%include './admin_side.html' %}{% endblock %}
-{% block content %}
-    <div class="layui-body" style='padding:15px;'>
-        <blockquote class='layui-elem-quote' style="margin-bottom:40px;">
-            <h1 style="font-size:20px">你好，
-                {% if userInfo.isAdmin %}
-                    管理员<em class='blog-manager'>{{userInfo.username}}</em>
-                {% else %}
-                    欢迎光临我的博客
-                {%endif%}
-            </h1>
-        </blockquote>
-        {% if userInfo.isAdmin %}
-            <fieldset class="layui-elem-field">
-                <legend class='legend-head'>用户列表概览</legend>
-                <div class='layui-field-box'>
-                    <table class='layui-table'>
-                        <thead>
-                            <th>用户名</th>
-                            <th>用户ID</th>
-                            <th>是否是管理员</th>
-                        </thead>
-                        <tbody>
-                    
-                        </tbody>
-                    </table>
-                </div>
-            </fieldset>
-            <fieldset class="layui-elem-field">
-                <legend class='legend-head'>分类列表概览</legend>
-                <div class='layui-field-box'>
-                    <table class='layui-table'>
-                        <thead>
-                            
-                        <tbody>
-            
-                        </tbody>
-                    </table>
-                </div>
-            </fieldset>
-        {% endif %}
-        <fieldset class="layui-elem-field">
-            <legend class='legend-head'>内容列表概览</legend>
-            <div class='layui-field-box'>
-                <table class='layui-table'>
-                    <thead>
-                        
-                    </thead>
-                    <tbody>
-        
-                    </tbody>
-                </table>
-            </div>
-        </fieldset>
-    </div>
+{% block side %}{%include './admin_side.html' %}{% endblock %} {% block content %}
+<div class="layui-body" style='padding:15px;'>
+    <blockquote class='layui-elem-quote' style="margin-bottom:40px;">
+        <h1 style="font-size:20px">你好， {% if userInfo.isAdmin %} 管理员
+            <em class='blog-manager'>{{userInfo.username}}</em>
+            {% else %} 欢迎光临我的博客 {%endif%}
+        </h1>
+    </blockquote>
+    {% if userInfo.isAdmin %}
+    <fieldset class="layui-elem-field">
+        <legend class='legend-head'>用户列表概览</legend>
+        <div class='layui-field-box'>
+            <table class='layui-table'>
+                <thead>
+                    <th>用户ID</th>
+                    <th>用户名</th>
+                    <th>是否是管理员</th>
+                </thead>
+                <tbody>
+                    {% if users.length > 0 %} {% for user in users %}
+                    <tr>
+                        <td>{{user._id.toString()}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{user.isAdmin}}</td>
+                    </tr>
+                    {% endfor %} {% else %}
+                    <tr>
+                        <td colspan='' align='center'>暂无数据</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            {% if users.length>0 %}
+                <a href="/admin/page?pid=pageId_0" class='layui-btn'>所有用户</a>
+            {% endif %}
+        </div>
+    </fieldset>
+    <fieldset class="layui-elem-field">
+        <legend class='legend-head'>分类列表概览</legend>
+        <div class='layui-field-box'>
+            <table class='layui-table'>
+                <thead>
+                    <th>分类ID</th>
+                    <th>分类名称</th>
+                </thead>
+                <tbody>
+                    {% if users.length > 0 %} {% for category in categories %}
+                    <tr>
+                        <td>{{category._id.toString()}}</td>
+                        <td>{{category.name}}</td>
+                    </tr>
+                    {% endfor %} {% else %}
+                    <tr>
+                        <td colspan='' align='center'>暂无数据</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            {% if categories.length==0 %}
+                <a href="/admin/page?pid=pageId_2" class='layui-btn'>添加分类</a>
+            {% else %}
+                <a href="/admin/page?pid=pageId_1" class='layui-btn'>所有分类</a>
+            {% endif %}
+        </div>
+    </fieldset>
+    {% endif %}
+    <fieldset class="layui-elem-field">
+        <legend class='legend-head'>内容列表概览</legend>
+        <div class='layui-field-box'>
+            <table class='layui-table'>
+                <thead>
+                    <th>ID</th>
+                    <th>标题</th>
+                    <th>所属分类</th>
+                    <th>描述</th>
+                    <th>作者</th>
+                    <th>发布时间</th>
+                </thead>
+                <tbody>
+                    {% if contents.length>0 %} {% for content in contents %}
+                    <tr>
+                        <td>{{content._id.toString()}}</td>
+                        <td>{{content.title}}</td>
+                        <td>{{content.category.name}}</td>
+                        <td>{{content.description}}</td>
+                        <td>{{content.user.username}}</td>
+                        <td>{{content.addTime.toLocaleDateString()}}</td>
+                    </tr>
+                    {% endfor %} {% else %}
+                    <tr>
+                        <td align='center' colspan='7'>暂无数据</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            {% if contents.length==0 %}
+                <a href="/admin/page?pid=pageId_4" class='layui-btn'>添加文章</a>
+            {% else %}
+                <a href="/admin/page?pid=pageId_3" class='layui-btn'>所有文章</a>
+            {% endif %}
+        </div>
+    </fieldset>
+</div>
 {%endblock%}
