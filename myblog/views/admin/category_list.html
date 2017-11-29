@@ -26,25 +26,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% if categories.length > 0 %}
-                            {% for category in categories %}
-                                <tr>
-                                    <td>{{category._id.toString()}}</td>
-                                    <td>{{category.name}}</td>
-                                    <td>
-                                        <a data-id='{{category.id}}' class='delCate layui-btn layui-btn-mini layui-btn-danger' href="javascript:">删除</a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        {% else %}
-                            <tr>
-                                <td align='center' colspan='3'>暂无数据</td>
-                            </tr>
+                        {% if categories.length > 0 %} {% for category in categories %}
+                        <tr>
+                            <td width='200px'>{{category._id.toString()}}</td>
+                            <td>{{category.name}}</td>
+                            <td>
+                                <a class='editCate layui-btn layui-btn-mini layui-btn-success' href="/admin/editcate?id={{category.id}}">修改</a>
+                                <a data-id='{{category.id}}' class='delCate layui-btn layui-btn-mini layui-btn-danger' href="javascript:">删除</a>
+                            </td>
+                        </tr>
+                        {% endfor %} {% else %}
+                        <tr>
+                            <td align='center' colspan='3'>暂无数据</td>
+                        </tr>
                         {% endif %}
                     </tbody>
                 </table>
                 {% if categories.length==0 %}
-                    <a href="/admin/page?pid=pageId_2" class='layui-btn'>添加分类</a>
+                <a href="/admin/page?pid=pageId_2" class='layui-btn'>添加分类</a>
                 {% endif %}
             </div>
         </div>

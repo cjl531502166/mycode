@@ -1,10 +1,31 @@
 {% extends './layout_main.html' %}
 <!-- 头部 -->
-{% block header %}{% include './main_header.html' %}{% endblock %}
-{% block content %}
-    <div class="container">
+{% block header %}{% include './main_header.html' %}{% endblock %} {% block content %}
+<div class="content">
+    {% for content in contents %}
         <div class="articles">
-            
+            <div class='article-header'>
+                <h1>
+                    <a href="/detail?ctn_id={{content.id}}">{{content.title}}</a>
+                </h1>
+                <div class="article-meta">
+                    <span>
+                        <i class='iconfont'>&#xe6a6;</i>&nbsp;{{content.addTime.toLocaleDateString()}}</span>
+                    <span>
+                        <i class='iconfont'>&#xe63d;</i>&nbsp;{{content.user.username}}</span>
+                    <span>
+                        <i class='iconfont'>&#xe665;</i>&nbsp;{{content.view}}</span>
+                    <span>
+                        <i class='iconfont'>&#xe666;</i>&nbsp;{{content.category.name}}</span>
+                    <span>
+                        <i class='iconfont'>&#xe632;</i>&nbsp;{{content.comments.length}}条</span>
+                </div>
+            </div>
+            <div class="article-desc">{{content.description}}</div>
+            <div class="article-more">
+                <a href="/detail?ctn_id={{content.id}}">阅读更多</a>
+            </div>
         </div>
-    </div>
+    {% endfor %}
+</div>
 {% endblock %}

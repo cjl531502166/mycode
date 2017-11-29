@@ -30,29 +30,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% if contents.length>0 %} 
-                            {% for content in contents %}
-                                <tr>
-                                    <td>{{content._id.toString()}}</td>
-                                    <td>{{content.title}}</td>
-                                    <td>{{content.category.name}}</td>
-                                    <td>{{content.description}}</td>
-                                    <td>{{content.user.username}}</td>
-                                    <td>{{content.addTime.toLocaleDateString()}}</td>
-                                    <td>
-                                        <a data-id='{{content.id}}' class='layui-btn layui-btn-mini layui-btn-danger delContent' href="javascript:">删除</a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        {% else %}
-                            <tr>
-                                <td align='center' colspan='7'>暂无数据</td>
-                            </tr>
+                        {% if contents.length>0 %} {% for content in contents %}
+                        <tr>
+                            <td width='200px'>{{content._id.toString()}}</td>
+                            <td>{{content.title}}</td>
+                            <td>{{content.category.name}}</td>
+                            <td>{{content.description}}</td>
+                            <td>{{content.user.username}}</td>
+                            <td>{{content.addTime.toLocaleDateString()}}</td>
+                            <td>
+                                <a data-id='{{content.id}}' class='layui-btn layui-btn-mini layui-btn-success' href="/admin/editcontent?id={{content.id}}">修改</a>
+                                <a data-id='{{content.id}}' class='layui-btn layui-btn-mini layui-btn-danger delContent' href="javascript:">删除</a>
+                            </td>
+                        </tr>
+                        {% endfor %} {% else %}
+                        <tr>
+                            <td align='center' colspan='7'>暂无数据</td>
+                        </tr>
                         {% endif %}
                     </tbody>
                 </table>
                 {% if contents.length==0 %}
-                    <a href="/admin/page?pid=pageId_4" class='layui-btn'>添加文章</a>
+                <a href="/admin/page?pid=pageId_4" class='layui-btn'>添加文章</a>
                 {% endif %}
             </div>
         </div>

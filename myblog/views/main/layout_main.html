@@ -3,17 +3,18 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="../css/main_ui.css">
         <link rel="stylesheet" href="../css/reset.css">
         <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
         <title>{{title}}</title>
     </head>
     <body>
+        {% include './aside.html' %}
         <div class="main">
              {% block header %}{% endblock %}
              {% block content %}{% endblock %}
              {% block footer %}{% endblock %}
         </div>
+        <script src="../js/main.js"></script>
     </body>
 </html>

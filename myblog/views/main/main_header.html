@@ -1,9 +1,9 @@
 <div class="header">
-    <div class="hd-top"></div>
     <div class="hd-container">
-        <div class="logo">
-            这里是logo
+        <div class="search-box">
+            <input class='search' type="text" placeholder="Enter">
         </div>
+        
         <ul class='nav'>
             <li>
                 {% if !curr %}
@@ -13,8 +13,13 @@
                 {% endif %}
             </li>
             {% for category in categories %}
+            
             <li>
-                <a href="/article/detail?id={{category.id}}">{{category.name}}</a>
+                {% if curr %}
+                    <a href="/article?cateid={{category.id}}" class='curr'>{{category.name}}</a>
+                {% else %}
+                    <a href="/article?cateid={{category.id}}">{{category.name}}</a>
+                {% endif %}
             </li>
             {% endfor %}
         </ul>

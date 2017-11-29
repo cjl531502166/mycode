@@ -1,0 +1,30 @@
+<div class="aside">
+    {% if user %}
+        <div class="author-intro">
+            <div class='head-img'>
+                <a href=""><img src="../images/vatar.png" alt=""></a>
+            </div>
+            <div class="author-name">{{user.username}}</div>
+            <div class="author-work">Web Developer & Bugger</div>
+            <div class="author-location">
+                <i class='iconfont'>&#xe630;</i>&nbsp;Wuhan，China</div>
+            <div class="author-thread-wrap">
+                <a href="https://github.com/cjl531502166" title="github">
+                    <i class='iconfont'>&#xe664;</i>
+                </a>
+                <a href="" title="QQ">
+                    <i class='iconfont'>&#xe629;</i>
+                </a>
+                <a href="" title='收藏'>
+                    <i class='iconfont'>&#xe6b4;</i>
+                </a>
+            </div>
+            <a class='btn-to-backend' href="/admin/index">管理我的博客</a>
+        </div>
+    {% else %}
+        <div class="login-out">
+            <a class='login-btn' href="/admin/login">登录</a>
+            <a class='register-btn' href="/admin/register">注册</a>
+        </div>
+    {% endif %}
+</div>

@@ -36,7 +36,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">文章简介</label>
                     <div class="layui-input-block">
-                        <input type="text" name="descp" required lay-verify="required" placeholder="请输入文章简介（100字）" class='layui-input'>
+                        <textarea type="text" name="descp" required lay-verify="required" placeholder="请输入文章简介（300字）" class='layui-textarea'></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -53,7 +53,7 @@
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">文章内容</label>
                     <div class="layui-input-block">
-                        <textarea id='contentEdit' name="content" placeholder="请输入内容"></textarea>
+                        <div id="Editor"></div>
                     </div>
                 </div>
                 <div class="layui-form-item">

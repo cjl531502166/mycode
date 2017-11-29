@@ -1,0 +1,25 @@
+{% extends './layout_main.html' %}
+<!-- 头部 -->
+{% block header %}{% include './main_header.html' %}{% endblock %} {% block content %}
+<div class="content-detail">
+    <div class="articles">
+        <div class='article-header'>
+            <h1 class='article-title'>{{content.title}}</h1>
+            <div class="article-meta" style="text-align:center;">
+                <span>
+                    <i class='iconfont'>&#xe6a6;</i>&nbsp;{{content.addTime.toLocaleDateString()}}</span>
+                <span>
+                    <i class='iconfont'>&#xe63d;</i>&nbsp;{{content.user.username}}</span>
+                <span>
+                    <i class='iconfont'>&#xe665;</i>&nbsp;{{content.view}}</span>
+                <span>
+                    <i class='iconfont'>&#xe666;</i>&nbsp;{{content.category.name}}</span>
+                <span>
+                    <i class='iconfont'>&#xe632;</i>&nbsp;{{content.comments.length}}条</span>
+            </div>
+        </div>
+        <div class="article-abstract">【摘要】{{content.description}}</div>
+        <div class="article-content">{% autoescape %}{{content.content}}{% endautoescape %}</div>
+    </div>
+</div>
+{% endblock %}

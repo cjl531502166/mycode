@@ -1,0 +1,30 @@
+<!-- 基础模板 -->
+{% extends './layout_admin.html' %}
+<!-- header模板 -->
+{% block header %}{% include './admin_header.html' %}{% endblock %}
+<!-- 侧栏模板 -->
+{% block side %}{%include './admin_side.html' %}{% endblock %} {% block content %}
+<div class="layui-body" style='padding:15px;'>
+    <blockquote class='layui-elem-quote'>
+        <h1 style="font-size:20px">你好， {% if userInfo.isAdmin %} 管理员
+            <em class='blog-manager'>{{userInfo.username}}</em>
+            {% else %} 欢迎光临我的博客 {%endif%}
+        </h1>
+    </blockquote>
+    <h2 class="content-title">分类修改</h2>
+    <hr class="layui-bg-red">
+    <form class="layui-form layui-form-pane" action="" style="width:80%;margin-top:30px;">
+        <div class="layui-form-item">
+            <label class="layui-form-label">分类名称</label>
+            <div class="layui-input-block">
+                <input type="text" value="{{category.name}}" name="category" required lay-verify="required" class='layui-input'>
+                <input type="hidden" name='id' value="{{category.id}}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <button class="layui-btn" lay-submit lay-filter="editCate">修改</button>
+            <a href="/admin/page?pid=pageId_1" class="layui-btn layui-btn-primary">返回</a>
+        </div>
+    </form>
+</div>
+{%endblock%}

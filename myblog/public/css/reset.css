@@ -3,7 +3,7 @@
 特色：1.适应中文 2.基于最新主流浏览器
 维护：玉伯(lifesinger@gmail.com), 正淳(ragecarrier@gmail.com)
 */
-
+html{color:#333;font-size: 10px}
 /* 清除内外边距 */
 body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
 dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
@@ -17,11 +17,45 @@ th, td { /* table elements 表格元素 */
 /* 设置默认字体 */
 body,
 button, input, select, textarea { /* for ie */
-    /*font: 12px/1 Tahoma, Helvetica, Arial, "宋体", sans-serif;*/
-    font-family:'Microsoft yahei','Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-family:-apple-system,"Microsoft YaHei","Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;
     /* 用 ascii 字符表示，使得在任何编码下都无问题 */
 }
-
+/* 滚动条设置 */
+/*谷歌、safari、qq浏览器、360浏览器滚动条样式*/
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
+::-webkit-scrollbar{  
+    width: 10px;  
+    height: 10px;  
+    /* background-color: #F5F5F5; */
+}  
+/*定义滚动条轨道 内阴影+圆角*/  
+::-webkit-scrollbar-track{  
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    /* border-radius: 10px; */
+    background-color: #F5F5F5;
+}    
+/*定义滑块 内阴影+圆角*/  
+::-webkit-scrollbar-thumb{  
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);  
+    background-color: #bdbdbd;
+}  
+/*滑块效果*/
+::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.4);
+}
+/*IE滚动条颜色*/
+html {
+    scrollbar-face-color:#bfbfbf;/*滚动条颜色*/
+    scrollbar-highlight-color:#000;
+    scrollbar-3dlight-color:#000;
+    scrollbar-darkshadow-color:#000;
+    scrollbar-Shadow-color:#adadad;/*滑块边色*/
+    scrollbar-arrow-color:rgba(0,0,0,0.4);/*箭头颜色*/
+    scrollbar-track-color:#eeeeee;/*背景颜色*/
+}
 h1 { font-size: 18px; /* 18px / 12px = 1.5 */ }
 h2 { font-size: 16px; }
 h3 { font-size: 14px; }
@@ -35,9 +69,8 @@ small { font-size: 12px; } /* 小于 12px 的中文很难阅读，让 small 正�
 ul, ol { list-style: none; }
 
 /* 重置文本格式元素 */
-a { text-decoration: none; }
+a { text-decoration: none;}
 a:hover { text-decoration: none; }
-
 abbr[title], acronym[title] { /* 注：1.ie6 不支持 abbr; 2.这里用了属性选择符，ie6 下无效果 */
  border-bottom: 1px dotted;
  cursor: help;
@@ -65,5 +98,19 @@ hr {
     height: 1px;
 }
 /* 让非ie浏览器默认也显示垂直滚动条，防止因滚动条引起的闪烁 */
-html { overflow-y: scroll; }
+@font-face {
+  font-family: 'iconfont';  /* project id 98070 */
+  src: url('//at.alicdn.com/t/font_98070_j6lhern2bbakyb9.eot');
+  src: url('//at.alicdn.com/t/font_98070_j6lhern2bbakyb9.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_98070_j6lhern2bbakyb9.woff') format('woff'),
+  url('//at.alicdn.com/t/font_98070_j6lhern2bbakyb9.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_98070_j6lhern2bbakyb9.svg#iconfont') format('svg');
+}
+.iconfont{
+    font-family:"iconfont" !important;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
 
