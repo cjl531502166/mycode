@@ -43,7 +43,7 @@ router.get('/', function (req, res) {
 //文章详情页
 router.get('/detail', function (req, res) {
   Promise.all([
-    Category.find(),
+    Category.find().sort({_id:-1}),
     Content.findById(req.query.ctn_id).populate([
       {
         path: 'category'

@@ -117,6 +117,7 @@
     min-width: 1000px;
     width: 1000px \9;
     width: 100%;
+    top:0;
     background: #eee;
     box-shadow: 0PX 4PX 5PX #A39E9E;
     -webkit-box-shadow: 0 2px 2px 1px rgba(3,3,3,0.2);
