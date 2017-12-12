@@ -18,7 +18,7 @@ router.use(function (req, res, next) {
 router.get('/', function (req, res) {
   Promise.all([
     Category.find().sort({_id:-1}),
-    Content.find({user: userInfo.uid}).populate([
+    Content.find().populate([
       {
         path: 'category'
       }, {
