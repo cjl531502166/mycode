@@ -133,6 +133,11 @@ layui.use(['form', 'element', 'table'],function () {
     //用户删除
     runDel('.delUser', 'tr', 'api/user/delete');
 
+    //资料更新
+    mod_config.form.on('submit(editInfo)',function (data) {
+        console.log(data.field);
+    })
+
     //设置管理员
     $('#setAdmin').on('click',function () {
         var id = $(this).data('id'), user = $(this).data('user');

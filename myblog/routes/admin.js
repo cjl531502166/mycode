@@ -148,4 +148,12 @@ router.get('/editcontent',function (req,res) {
         })
     })
 })
+
+//完善资料
+router.get('/userinfo',function (req,res) {
+    res.render('admin/user_info',{
+        title:'博客管理后台',
+        userInfo:req.userInfo
+    })
+})
 module.exports = router;

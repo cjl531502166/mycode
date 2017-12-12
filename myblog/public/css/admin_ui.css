@@ -2,6 +2,9 @@
 .text-red{
     color:red;
 }
+.link{
+    color:blue!important;
+}
 .login-main{
     overflow: hidden;
     width: 100%;

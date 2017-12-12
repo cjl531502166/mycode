@@ -1,0 +1,38 @@
+<!-- 基础模板 -->
+{% extends './layout_admin.html' %}
+<!-- header模板 -->
+{% block header %}{% include './admin_header.html' %}{% endblock %}
+<!-- 侧栏模板 -->
+{% block side %}{%include './admin_side.html' %}{% endblock %} {% block content %}
+<div class="layui-body" style='padding:15px;'>
+    <h2 class="content-title">完善个人资料</h2>
+    <hr class="layui-bg-red">
+    <form class="layui-form layui-form-pane" action="" style="width:80%;margin-top:30px;">
+        <div class="layui-form-item">
+            <label class="layui-form-label">昵称</label>
+            <div class="layui-input-block">
+                <input type="text" name="nickname" placeholder="请输入昵称" required lay-verify="required" class='layui-input'>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">从事行业</label>
+            <div class="layui-input-block">
+                <input type="text" name="nickname" placeholder="请输入从事行业" required lay-verify="required" class='layui-input'>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">工作城市</label>
+            <div class="layui-input-inline">
+                <select name="workAddr" >
+                    <option value="">请选择城市</option>
+                    <option value="武汉">武汉</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <button class="layui-btn" lay-submit lay-filter="editInfo">保存</button>
+            <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+        </div>
+    </form>
+</div>
+{%endblock%}

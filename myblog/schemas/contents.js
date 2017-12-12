@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
 module.exports = new mongoose.Schema({
-    //用户名
     category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category'
     },
+    //用户名
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

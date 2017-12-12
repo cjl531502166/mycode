@@ -3,19 +3,17 @@
         <div class="search-box">
             <input class='search' type="text" placeholder="Enter">
         </div>
-        
         <ul class='nav'>
             <li>
-                {% if !curr %}
+                {% if curr == '' %}
                     <a href="/" class='curr'>首页</a>
                 {% else %}
                     <a href="/">首页</a>
                 {% endif %}
             </li>
             {% for category in categories %}
-            
             <li>
-                {% if curr %}
+                {% if curr == category.id %}
                     <a href="/article?cateid={{category.id}}" class='curr'>{{category.name}}</a>
                 {% else %}
                     <a href="/article?cateid={{category.id}}">{{category.name}}</a>

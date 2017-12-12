@@ -23,7 +23,7 @@
                             <th>ID</th>
                             <th>标题</th>
                             <th>所属分类</th>
-                            <th>描述</th>
+                            <!-- <th>描述</th> -->
                             <th>作者</th>
                             <th>发布时间</th>
                             <th class='operation'>操作</th>
@@ -33,9 +33,9 @@
                         {% if contents.length>0 %} {% for content in contents %}
                         <tr>
                             <td width='200px'>{{content._id.toString()}}</td>
-                            <td>{{content.title}}</td>
+                            <td><a target="_blank" class='link' href='/detail?ctn_id={{content.id}}'>{{content.title}}</a></td>
                             <td>{{content.category.name}}</td>
-                            <td>{{content.description}}</td>
+                            <!-- <td width='40%;'>{{content.description}}</td> -->
                             <td>{{content.user.username}}</td>
                             <td>{{content.addTime.toLocaleDateString()}}</td>
                             <td>
