@@ -8,7 +8,11 @@ var baseUrl
     ,user = {}//查询条件;
 router.use(function (req, res, next) {
     baseUrl = req.baseUrl;
-    user.user = req.userInfo.uid;
+    if (!req.userInfo.isAdmin) {
+        user.user = req.userInfo.uid;
+    }else{
+        user = {}
+    }
     next();
 })
 //登录
