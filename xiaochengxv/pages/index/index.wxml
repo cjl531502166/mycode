@@ -1,0 +1,88 @@
+<!--index.wxml-->
+<!-- 引入列表模板 -->
+<import src='../../components/newslist/newslist.wxml'/>
+<view class='container'>
+  <!--搜索框  -->
+  <view class='search-box'>
+    <image mode='widthFix' src='../../images/bg_1.jpg'></image>
+   <view class='input-box'>
+    <input type='text' bindinput='getDeliveryNo' placeholder='输入13位数字物流单号'/>
+    <icon bindtouchend='trackPkg' class='search-btn iconfont wx-icon-sousuo'></icon>
+   </view>
+  </view>
+  <!--菜单  -->
+  <view class='menu-container'>
+    <view bindtouchend='tapHandle' data-url='/pages/delivery/delivery'  class='m-item'>
+      <image mode='widthFix' src='/images/icon_1.png'></image>
+      <view class='rel'>
+        <text>我要下单</text>
+      </view>
+    </view>
+    <view bindtouchend='tapHandle' data-url='/pages/mypackage/pkglist'  class='m-item'>
+      <image mode='widthFix' src='/images/icon_2.png'></image>
+      <view class='rel'>
+        <text>我的包裹</text>
+        <icon class='some-new'></icon>
+      </view>
+    </view>
+    <view bindtouchend='tapHandle' data-url='/pages/excharges/excharge'  class='m-item'>
+      <image mode='widthFix' src='/images/icon_3.png'></image>
+      <view class='rel'>
+        <text>超重补款</text>
+        <icon class='some-new'></icon>
+      </view>
+    </view>
+    <view bindtouchend='tapHandle' data-url='/pages/charges/charge'  class='m-item'>
+      <image mode='widthFix' src='/images/icon_4.png'></image>
+      <view class='rel'>
+        <text>运费查询</text>
+      </view>
+    </view>
+  </view>
+  <image class='invite' mode='widthFix' src='/images/bg_2.jpg'></image>
+  <!-- 最新新闻 -->
+  <view class='notice-container'>
+    <view class='notice-head'>
+      <text class='notice-title'>公告资讯</text>
+      <text bindtouchend='seeMore' class='notice-handle'>查看更多</text>
+    </view>
+  <!--列表模板渲染-->
+    <block wx:for='{{newsModel.newsList}}' wx:key='{{index}}'>
+      <template is='newsList' data='{{...item}}'></template>
+    </block>
+  </view>
+  <!-- 选择模态框 -->
+  <view hidden='{{RadioModalHidden}}' class='dialog-alert'>
+    <view class='mask'></view>
+    <view class='dialog'>
+      <view class='dialog-hd'>请选择您需要的物流服务</view>
+      <view class='dialog-bd'>
+        <radio-group class="radio-group" bindchange="radioChange">
+          <label wx:for='{{radioItem}}' wx:key='{{index}}' class="radio">
+            <radio value='{{item.name}}' checked='{{item.checked}}' />
+            <text>{{item.value}}</text>
+          </label>
+        </radio-group>
+      </view>
+      <view class='dialog-ft'>
+        <view bindtouchend='deliveryType' class='m-btn confirm-btn'>确定</view>
+      </view>
+    </view>
+  </view>
+  <!-- 邮箱绑定模态框 -->
+  <view hidden='{{isEmailBind}}' class='dialog-alert'>
+    <view class='mask'></view>
+    <view class='dialog'>
+      <view class='dialog-hd'>请输入绑定的邮箱</view>
+      <view class='dialog-bd'>
+        <input bindinput='getEmailArr' type='email' placeholder='输入邮箱地址'></input>
+      </view>
+      <text class='err-text'>{{errMsg}}</text>
+      <view class='dialog-ft'>
+        <view bindtouchend='cancelHandle' class='m-btn btn-bd-rt cancel-btn'>取消</view>
+        <view bindtouchend='bindEmailHandle' class='m-btn confirm-btn'>确定</view>
+      </view>
+    </view>
+  </view>
+</view>
+

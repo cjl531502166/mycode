@@ -1,0 +1,10 @@
+<!--新闻详情页面-->
+<view class='news-detail'>
+    <view class='detail-head'>
+        <view>新闻标题</view>
+        <view>2017-12-17</view>
+    </view>
+    <view class='detail-content'>
+        <rich-text nodes='{{node}}'></rich-text>
+    </view>
+</view>

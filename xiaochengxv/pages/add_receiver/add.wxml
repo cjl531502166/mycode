@@ -1,0 +1,62 @@
+<!-- 添加收件人 -->
+<view class='add-receiver'>
+    <view class='section-head'>收件人信息</view>
+    <view class='detail-info'>
+        <view class='info-item'>
+            <text class='item-name'>收件人</text>
+            <input bindblur='setCnName' type='text' placeholder='真实姓名' value='{{receiver}}'></input>
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>联系电话</text>
+            <input bindblur='getTel' type='text' value='{{cellphone}}' placeholder='手机或固话'></input>
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>选择地区</text>
+            <input placeholder="选择地区" value="{{address}}" focus="{{focus}}" bindfocus="pickerShowAndHide"/>
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>详细地址</text>
+            <textarea bindblur='getDetailAddr' type='text' placeholder='街道门牌信息' value='{{addrDetail}}'></textarea>
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>邮政编码</text>
+            <input bindblur='checkPostcode' maxlength='5' type='text' value='{{postnumber}}' placeholder='填写邮政编码'></input>
+        </view>
+    </view>
+    <view class='warn-text'>收件人拼音信息，填写上面的中文信息后系统将会自动翻译，请人工检查确认无误后再提交</view>
+    <view class='detail-info'>
+        <view class='info-item'>
+            <text class='item-name'>收件人</text>
+            <input class='translate-text' type='text' value="{{receiverZn}}" placeholder='收件人姓名（拼音）'/>
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>地址</text>
+            <textarea class='translate-text' type='text' placeholder='地址' value='{{addressZn}}'></textarea>
+        </view>
+    </view>
+    <checkbox-group bindchange="checkboxChange">
+        <label wx:if='{{fromPage}}' class="checkbox">
+            <checkbox value='{{saveAddr}}'  checked="{{saveAddr}}" />保存并设为默认收件人
+        </label>
+    </checkbox-group>
+    <view bindtouchend='saveHandle' class='btn btn-block btn-primary'>保存</view>
+</view>
+
+<!-- 城市选择 -->
+<view wx:if='{{condition}}' class='citypickers'>
+    <picker-view indicator-style='height: 46px;' style="width: 100%; height: 250px;" value="{{value}}" bindchange="bindChange" class="citybody">
+        <view class="cityheader">
+            <view bindtap="pickerShowAndHide" class="city-cancel">取消</view>
+            <view bindtap="confirm" class="city-true">确定</view>
+        </view>
+        <picker-view-column>
+            <view wx:for="{{provinces}}" style='line-height:46px;text-align:center;font-size:16px;' wx:key="item">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+            <view wx:for="{{citys}}" style='line-height:46px;text-align:center;font-size:16px;' wx:key="item">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+            <view wx:for="{{districts}}" style='line-height:46px;text-align:center;font-size:16px;' wx:key="item">{{item}}</view>
+        </picker-view-column>
+    </picker-view>
+</view>

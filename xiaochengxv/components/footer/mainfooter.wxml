@@ -1,0 +1,11 @@
+<!--components/mainfooter.wxml-->
+<view class='m-footer-container'>
+  <view data-url='/pages/index/index' bindtap='navigateTo' class='menu {{state == "index"?"on": ""}}'>
+    <icon class='iconfont home-icon wx-icon-pkg-empty'></icon>
+    <text class='item'>快递下单</text>
+  </view>
+  <view data-url='/pages/user/user' bindtap='navigateTo' class='menu {{state == "user"?"on": ""}}'>
+    <icon class='iconfont me-icon wx-icon-wode'></icon>
+    <text class='item'>我的</text>
+  </view>
+</view>

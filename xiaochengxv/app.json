@@ -1,0 +1,55 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/pkginfo/pkginfo",
+        "pages/receiver_list/receiver_list",
+        "pages/sender_list/sender_list",
+        "pages/news_notices/news_notice",
+        "pages/invoice_copy/invoice_copy",
+        "pages/add_invoice/add",
+        "pages/invoice/invoice",
+        "pages/invoice_list/invoice_list",
+        "pages/sender/sender",
+        "pages/add_sender/add",
+        "pages/add_receiver/add",
+        "pages/receivers/receivers",
+        "pages/myinvitee/invitees",
+        "pages/user/user",
+        "pages/delivery_detail/delivery_detail",
+        "pages/editemail/editemail",
+        "pages/order_detail/detail",
+        "pages/excharge_detail/excharge_detail",
+        "pages/myorder/order_list",
+        "pages/myprofile/profile",
+        "pages/excharges/excharge",
+        "pages/mypackage/pkglist",
+        "pages/pkgdetail/pkgdetail",
+        "pages/delivery/delivery",
+        "pages/newsdetail/newsdetail"
+    ],
+    "tabBar": {
+        "color": "#000",
+        "selectedColor": "#009aff",
+        "backgroundColor": "#fff",
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "text": "快递下单",
+                "iconPath": "images/pkg_0.png",
+                "selectedIconPath": "images/pkg_1.png"
+            },
+            {
+                "pagePath": "pages/user/user",
+                "text": "我的",
+                "iconPath": "images/user_0.png",
+                "selectedIconPath": "images/user_1.png"
+            }
+        ]
+    },
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#000",
+        "navigationBarTitleText": "德意志服务平台",
+        "navigationBarTextStyle": "#fff"
+    }
+}

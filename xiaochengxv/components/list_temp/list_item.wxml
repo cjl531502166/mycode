@@ -1,0 +1,42 @@
+<!-- 超重补款模板 -->
+<template name='exchargeList'>
+  <navigator url="{{url}}+{{id}}">
+    <view class='list-item'>
+      <view class='li-item-0'>
+        <text>{{id}}</text>
+        <text class='icon-status icon-status-warn'>{{status}}</text>
+      </view>
+      <view class='li-item-1'>
+        <view>
+          <icon class='iconfont wx-icon-wuliu'></icon>{{delivery_type}}</view>
+        <view>
+          <icon class='iconfont wx-icon-jifen'></icon>{{pkgweight}}g</view>
+      </view>
+      <view class='li-item-2'>
+        <text>{{datetime}}</text>
+        <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
+      </view>
+    </view>
+  </navigator>
+</template>
+<!-- 我的包裹模板 -->
+<template name='mypkgList'>
+  <navigator url="{{url}}+{{id}}">
+    <view class='list-item'>
+      <view class='li-item-0'>
+        <text>{{id}}</text>
+        <text class='icon-status icon-status-ok'>{{status}}</text>
+      </view>
+      <view class='li-item-1'>
+        <view>
+          <icon class='iconfont wx-icon-fenlei'></icon>{{delivery_type}}</view>
+        <view>
+          <icon class='iconfont wx-icon-ouyuan'></icon>{{fees}}</view>
+      </view>
+      <view class='li-item-2'>
+        <text>{{datetime}}</text>
+        <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
+      </view>
+    </view>
+  </navigator>
+</template>
