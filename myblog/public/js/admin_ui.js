@@ -1,11 +1,12 @@
 
 //注册layui 模块
-layui.use(['form', 'element', 'table'],function () {
+layui.use(['form', 'element', 'table','upload'],function () {
     //模块加载
     var mod_config = {
         form:layui.form,
         element:layui.element,
         table:layui.table,
+        upload: layui.upload,
         editorInit: function (ele) {
             if(!$(ele)[0]) return false;
             window.editor = new window.wangEditor(ele);
@@ -154,7 +155,16 @@ layui.use(['form', 'element', 'table'],function () {
             layer.close(index);
         })
     })
-
+    //上传头像
+    mod_config.upload.render({
+        elem:'#uploadHdpic',
+        url:'/api/user/avatar',
+        accept: 'file',
+        field:'avatar',
+        before:function (res) {
+            
+        }
+    })
     //分类添加
     operatCate('addCate','/api/category/add','POST');
     // 分类修改
