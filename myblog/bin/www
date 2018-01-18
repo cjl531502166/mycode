@@ -7,29 +7,38 @@
 var app = require('../app');
 var debug = require('debug')('myblog:server');
 var http = require('http');
-var mongoose  = require('mongoose');
+var https = require('https');
+var fs = require('fs');
+var privateKey = fs.readFileSync('./keys/DV_pem.key', 'utf8');
+var certificate = fs.readFileSync('./keys/DV_cert.crt', 'utf8');
+var credentials = { key: privateKey, cert: certificate };
+var mongoose = require('mongoose');
 mongoose.Promise = require("bluebird");
 /**
  * Get port from environment and store in Express.
  */
 
 var port = normalizePort(process.env.PORT || '80');
+var sslport = normalizePort(process.env.PORT || '443');
 app.set('port', port);
-
+app.set('port', sslport);
 /**
  * Create HTTP server.
  */
 
 var server = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
 server.listen(port);
+httpsServer.listen(sslport);
 server.on('error', onError);
+httpsServer.on('error',onError);
 server.on('listening', onListening);
-
+httpsServer.on('listening', onListening);
 /**
  * Normalize a port into a number, string, or false.
  */
@@ -87,10 +96,10 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  mongoose.connect('mongodb://chenjiulin:chenjiulin_9085@localhost:27017/admin',{useMongoClient:true},function (err) {
-    if(err) {
+  mongoose.connect('mongodb://chenjiulin:chenjiulin_9085@www.jolin90.com:27017/admin', { useMongoClient: true }, function (err) {
+    if (err) {
       console.log(err)
-    }else{
+    } else {
       debug('Listening on ' + bind);
     }
   })
