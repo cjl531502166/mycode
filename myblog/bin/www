@@ -7,32 +7,29 @@
 var app = require('../app');
 var debug = require('debug')('myblog:server');
 var http = require('http');
-var https = require('https');
-var fs = require('fs');
-var privateKey = fs.readFileSync('./keys/DV_pem.key', 'utf8');
-var certificate = fs.readFileSync('./keys/DV_cert.crt', 'utf8');
-var credentials = { key: privateKey, cert: certificate };
-var mongoose = require('mongoose');
+var mongoose  = require('mongoose');
 mongoose.Promise = require("bluebird");
 /**
  * Get port from environment and store in Express.
  */
 
-var sslport = normalizePort(process.env.PORT || '1337');
-app.set('port', sslport);
+var port = normalizePort(process.env.PORT || '80');
+app.set('port', port);
+
 /**
  * Create HTTP server.
  */
-var httpsServer = https.createServer(credentials, app);
+
+var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
 
-httpsServer.listen(sslport);
-httpsServer.on('error',onError);
-httpsServer.on('listening', onListening);
 /**
  * Normalize a port into a number, string, or false.
  */
@@ -63,8 +60,8 @@ function onError(error) {
   }
 
   var bind = typeof port === 'string'
-    ? 'Pipe ' + sslport
-    : 'Port ' + sslport;
+    ? 'Pipe ' + port
+    : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -86,14 +83,14 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = httpsServer.address();
+  var addr = server.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  mongoose.connect('mongodb://chenjiulin:chenjiulin_9085@www.jolin90.com:27017/admin', { useMongoClient: true }, function (err) {
-    if (err) {
+  mongoose.connect('mongodb://chenjiulin:chenjiulin_9085@www.jolin90.com:27017/admin',{useMongoClient:true},function (err) {
+    if(err) {
       console.log(err)
-    } else {
+    }else{
       debug('Listening on ' + bind);
     }
   })
