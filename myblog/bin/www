@@ -18,7 +18,7 @@ mongoose.Promise = require("bluebird");
  * Get port from environment and store in Express.
  */
 
-var sslport = normalizePort(process.env.PORT || '443');
+var sslport = normalizePort(process.env.PORT || '1337');
 app.set('port', sslport);
 /**
  * Create HTTP server.
