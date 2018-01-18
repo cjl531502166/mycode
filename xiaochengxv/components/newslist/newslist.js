@@ -1,11 +1,22 @@
 // components/newslist/newslist.js
 
+import newsModel from '../../models/news.model.js';
+import newsSevice from '../../services/news.service.js';
+const app = getApp();
 Page({
-  // newsDetail(e){
-  //   let url = e.currentTarget.dataset.url;
-  //   //路由跳转
-  //   // wx.navigateTo({
-  //   //   url: '',
-  //   // })
-  // }
+
+    /**
+     * 页面的初始数据
+     */
+    data: {
+        newsModel: newsModel
+    },
+    onLoad() {
+        //获取新闻
+        newsSevice.getNews((res) => {
+            this.setData({
+                newsModel: newsModel
+            })
+        });
+    }
 })

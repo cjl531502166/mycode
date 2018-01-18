@@ -1,4 +1,5 @@
 export default{
     hasNews: false,
-    newsList:[]
+    newsList:[],
+    newsDetail:[]
 }

@@ -7,10 +7,10 @@
         </view>
     </navigator>
     <view class='section-head'>我的发件人</view>
-    <view  class='receiver-list'>
+    <view class='receiver-list'>
         <radio-group class="radio-group" bindchange="addressChange">
             <view wx:for='{{deliveryConfig.senderList}}' wx:key='{{item.id}}' class='receiver-info'>
-                <view class='rc-info-item'>
+                <view bindtouchend='editSender' data-id='{{item.id}}' class='rc-info-item'>
                     <view>
                         <text class='rc-name'>{{item.name}}</text>
                         <text class='rc-addr'>{{item.address}},{{item.city}},{{item.country}},{{item.cellphone}}</text>

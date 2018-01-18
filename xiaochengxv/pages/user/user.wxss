@@ -6,6 +6,7 @@
     flex-direction: column;
     align-items: center;
     padding: 7.3% 0;
+    max-height: 180px;
 }
 .user-profile view{
     margin-top: 5px;
@@ -54,7 +55,9 @@ navigator icon{
 }
 .icon-menu{
     margin-right: 6px;
+    width: 30px;
 }
-.menu-text{
-    font-weight: 600;
+.wx-icon-fa-truck-copy{
+  position: relative;
+  right: 4px;
 }

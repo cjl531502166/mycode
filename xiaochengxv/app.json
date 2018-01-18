@@ -2,17 +2,20 @@
     "pages": [
         "pages/index/index",
         "pages/pkginfo/pkginfo",
-        "pages/receiver_list/receiver_list",
-        "pages/sender_list/sender_list",
         "pages/news_notices/news_notice",
         "pages/invoice_copy/invoice_copy",
         "pages/add_invoice/add",
         "pages/invoice/invoice",
         "pages/invoice_list/invoice_list",
+        "pages/edit_invoice/edit",
         "pages/sender/sender",
         "pages/add_sender/add",
+        "pages/edit_sender/edit",
+        "pages/sender_list/sender_list",
         "pages/add_receiver/add",
+        "pages/edit_receiver/edit",
         "pages/receivers/receivers",
+        "pages/receiver_list/receiver_list",
         "pages/myinvitee/invitees",
         "pages/user/user",
         "pages/delivery_detail/delivery_detail",
@@ -25,7 +28,8 @@
         "pages/mypackage/pkglist",
         "pages/pkgdetail/pkgdetail",
         "pages/delivery/delivery",
-        "pages/newsdetail/newsdetail"
+        "pages/newsdetail/newsdetail",
+        "pages/feetpl/feetpl"
     ],
     "tabBar": {
         "color": "#000",

@@ -12,7 +12,6 @@ Page({
     },
 
     onLoad: function () {
-        wx.showLoading();
         this.setData({
             "deliveryConfig": deliveryConfig
         })

@@ -10,19 +10,12 @@ Page({
     data: {
         newsModel: newsModel
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
-        
-    },
-
-    onShow: function () {
-
-    },
-
-    onHide: function () {
-
-    },
+    onLoad() {
+        //获取新闻
+        newsSevice.getNews((res) => {
+            this.setData({
+                newsModel: newsModel
+            })
+        });
+    }
 })

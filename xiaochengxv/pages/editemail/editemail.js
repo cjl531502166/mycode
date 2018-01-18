@@ -1,23 +1,25 @@
 // pages/editemail/editemail.js
 import M from '../../components/modals/common.js';
+import One from '../../utils/one.js';
 const app = getApp();
 Page({
 
     data: {
         userEmail: null,
-        errMsg:""
+        errMsg: ""
     },
 
     onLoad: function () {
-        this.setData({
-            "userEmail":wx.getStorageSync('email')
+        One.ajax('user/info', {}, res => {
+            this.setData({
+                userEmail: res.data.data.email
+            })
         })
     },
-    getEmail(e){
+    getEmail(e) {
         this.data.userEmail = e.detail.value;
-        console.log(e.detail.value)
     },
-    changeEmail(){
+    changeEmail() {
         let email = this.data.userEmail,
             reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/;
         if (!email) {
@@ -31,11 +33,15 @@ Page({
             })
         }
         else {
-            this.setData({ errMsg: "修改成功" })
-            wx.setStorageSync("email", email);
-            wx.showToast({
-                title: '修改成功',
-            });
+            One.ajax('user/set-email', { "email": email }, res => {
+                //邮箱绑定成功的操作
+                wx.showToast({
+                    title: "绑定成功"
+                })
+                wx.reLaunch({
+                    url: '/pages/user/user'
+                })
+            })
         }
     }
 })

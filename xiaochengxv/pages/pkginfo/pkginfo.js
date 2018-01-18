@@ -36,24 +36,29 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        //修改操作
+
         let that = this, id;
         this.data.packageId = id = options.packageId ? options.packageId : null;
+        //获取运费模板
+        if (!deliveryConfig.fee_tpl) {
+            deliveryService.getFeeTpl(deliveryConfig.deliver_type);
+        }
+        this.data.fee_tpl = deliveryConfig.fee_tpl;
         if (id) {
             //计算包裹运费
-           deliveryService.getFeeTpl(deliveryConfig.deliver_type);
-           deliveryConfig.fee_tpl.forEach((item, index, arr) => {
-                if (deliveryConfig.packageList[id].weight == item.weight) {
-                    that.data.package.fee = item.fee;
-                    return
-                }
-            })
+            let weight = deliveryConfig.packageList[id].weight;
+            // deliveryConfig.fee_tpl.forEach((item, index, arr) => {
+            //     if (deliveryConfig.packageList[id].weight == item.weight) {
+            //         that.data.package.fee = item.fee;
+            //         return
+            //     }
+            // });
             this.setData({
                 "package": {
                     "weight": deliveryConfig.packageList[id].weight,
-                    "fee": that.data.package.fee
+                    "fee": deliveryConfig.fee_tpl[weight - 1].fee
                 }
-            })
+            });
             deliveryConfig.packageList[id].goods.forEach((item, index, arr) => {
                 that.data.viewObj.push({
                     "cateIndex": that.data.cateIndex,
@@ -73,10 +78,7 @@ Page({
             this.setData({
                 "categories": Category
             })
-        })
-        //获取运费模板
-        deliveryService.getFeeTpl(deliveryConfig.deliver_type);
-        this.data.fee_tpl = deliveryConfig.fee_tpl;
+        });
     },
 
     // 添加品种
@@ -181,22 +183,15 @@ Page({
         let weight = e.detail.value,
             id = e.currentTarget.dataset.id,
             that = this;
-        if (weight && isNaN(weight)) {
-            M._alert('重量必须为数字')
+        if (weight <= 0 || isNaN(weight)) {
+            M._alert('重量必须为大于0的整数');
         } else if (weight > 30) {
             M._alert('包裹重量不能大于30kg');
         } else {
             this.data.package.weight = weight;
             // 计算运费
-            this.data.fee_tpl.map((item, index) => {
-                if ((item.weight - 0) == weight) {
-                    that.data.package.fee = item.fee;
-                    that.setData({
-                        "package": that.data.package
-                    })
-                    return;
-                }
-            })
+            that.data.package.fee = this.data.fee_tpl[weight - 1].fee;
+            that.setData({ "package": that.data.package });
         }
     },
     confirmAdd() {
@@ -210,7 +205,7 @@ Page({
             return
         }
         // 判断包裹内容
-        this.data.viewObj.map((item, index) => {
+        this.data.viewObj.forEach((item, index) => {
             for (let key in item.goods) {
                 if (item.goods[key] == '') {
                     M._alert('请确认页面信息填写正确后提交');
@@ -222,18 +217,16 @@ Page({
                 "weight": that.data.package.weight,
                 "goods": goodsArr
             }
-        })
+        });
+        if (that.data.packageId) {
+            //修改
+            deliveryConfig.packageList.splice(that.data.id, 1, currPackage)
+        } else {
+            //添加
+            deliveryConfig.packageList.push(currPackage);
+        }
         wx.redirectTo({
-            url: '/pages/delivery/delivery',
-            success: () => {
-                if (that.data.id != '') {
-                    //修改
-                    deliveryConfig.packageList.splice(that.data.id, 1, currPackage)
-                } else {
-                    //添加
-                    deliveryConfig.packageList.push(currPackage);
-                }
-            }
+            url: '/pages/delivery/delivery'
         })
     }
 })

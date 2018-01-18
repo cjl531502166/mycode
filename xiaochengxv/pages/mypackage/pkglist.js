@@ -1,72 +1,101 @@
 // pages/mypackage/pkglist.js
+import One from '../../utils/one.js';
+import goodsCategory from '../../models/goods.categories.js';
+import categoryService from '../../services/category.service.js';
+import searchModel from '../../models/search.model.js';
+import searchService from '../../services/search.service.js';
 Page({
     data: {
-        navigateto:'/pages/pkgdetail/pkgdetail?',
-        filters: null,
+        order_sn: '',
+        navigateto: '/pages/pkgdetail/pkgdetail?',
+        category: [{ "id": 0, "name_cn": "全部品种" }],
+        cateIndex: 0,
+        status: [{ "name_en": "all", "name_cn": "全部状态" }],
+        statusIndex: 0,
+        date: '全部日期',
         pkg_list: null,
+        searchConditions: null //列表搜索条件
     },
 
-    onShow: function () {
-        this.setData({
-            "filters": {
-                "f_item_0": {
-                    "index": 0,
-                    "lists": ["全部品种", "品种1", "品种2", "品种3"]
-                },
-                "f_item_1": {
-                    "index": 0,
-                    "lists": ["全部状态", "已付款", "已审核", "已出库", "超重补款", "问题件"]
-                },
-                "f_item_2": {
-                    "date": '全部日期'
+    onLoad: function () {
+        let that = this;
+        //获取列表
+        this.getList();
+        //获取品种
+        categoryService.getCategories(res => {
+            this.data.category[1] = res.data.data[0];
+            this.setData({
+                category: this.data.category
+            })
+        });
+        //获取状态
+        searchService.getStatus(res => {
+            let i = 0, obj;
+            for (let key in searchModel.status) {
+                obj = {
+                    "name_en": key,
+                    "name_cn": searchModel.status[key]
                 }
+                that.data.status.push(obj);
             }
-        })
-        this.setData({
-            "pkg_list": [
-                {
-                    "url": this.data.navigateto,
-                    "id": "14888164",
-                    "status": "已付款",
-                    "delivery_type": "婴儿食品",
-                    "fees": 10,
-                    "datetime": "2017-12-15"
-                }, {
-                    "url": this.data.navigateto,
-                    "id": "feageageag",
-                    "status": "已审核",
-                    "delivery_type": "婴儿食品",
-                    "fees": 15,
-                    "datetime": "2017-12-10"
-                }
-            ]
-        })
+            that.setData({
+                status: that.data.status
+            })
+        });
     },
-
-
-    onHide: function () {
-
-    },
-
-    onUnload: function () {
-
+    getList(data) {
+        let that = this;
+        that.data.pkg_list = [];
+        One.ajax('user/delivery-orders', data ? data : {}, res => {
+            res.data.data.forEach((item, index) => {
+                item.packages.forEach((pkg, i) => {
+                    pkg.status = item.status;
+                    pkg.order_sn = item.order_sn;
+                    pkg.updated_at = item.updated_at;
+                    that.data.pkg_list.push(pkg)
+                })
+            })
+            this.setData({ "pkg_list": that.data.pkg_list })
+        });
     },
     onCategoryChagne(e) {
-        this.data.filters.f_item_0.index = e.detail.value;
-        this.setData({
-            "filters": this.data.filters
-        })
+        this.setData({ cateIndex: e.detail.value });
+
     },
     onStatusChagne(e) {
-        this.data.filters.f_item_1.index = e.detail.value;
-        this.setData({
-            "filters": this.data.filters
-        })
+        this.setData({ statusIndex: e.detail.value });
+        let order_sn = this.data.order_sn ? this.data.order_sn : "",
+            status = this.data.statusIndex != 0 ? this.data.status[this.data.statusIndex].name_en : "",
+            dateYm = this.data.date == "全部日期" ? "" : this.data.date;
+        this.data.searchConditions = {
+            "order_sn": order_sn,
+            "status": status,
+            "dateYm": dateYm
+        };
+        this.getList(this.data.searchConditions);
     },
     onDateChange(e) {
-        this.data.filters.f_item_2.date = e.detail.value;
-        this.setData({
-            "filters": this.data.filters
-        })
+        this.setData({ "date": e.detail.value });
+        let order_sn = this.data.order_sn ? this.data.order_sn : "",
+            status = this.data.statusIndex != 0 ? this.data.status[this.data.statusIndex].name_en : "",
+            dateYm = this.data.date == "全部日期" ? "" : this.data.date;
+        this.data.searchConditions = {
+            "order_sn": order_sn,
+            "status": status,
+            "dateYm": dateYm
+        };
+        this.getList(this.data.searchConditions);
+    },
+    searchHandle(e) {
+        this.data.order_sn = e.detail.value;
+        let order_sn = this.data.order_sn ? this.data.order_sn : "",
+            status = this.data.statusIndex != 0 ? this.data.status[this.data.statusIndex].name_en : "",
+            dateYm = this.data.date == "全部日期" ? "" : this.data.date;
+        this.data.searchConditions = {
+            "order_sn": order_sn,
+            "status": status,
+            "dateYm": dateYm
+        };
+        this.getList(this.data.searchConditions);
     }
 })

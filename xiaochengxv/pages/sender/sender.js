@@ -20,9 +20,23 @@ Page({
     deleteAddr(e) {
         let id = e.currentTarget.dataset.id;
         deliveryService.deleteSender(id, res => {
-            this.setData({
-                'deliveryConfig': deliveryConfig
+            deliveryService.getSenders(res => {
+                this.setData({
+                    'deliveryConfig': deliveryConfig
+                })
+                wx.showToast({
+                    title: '已删除'
+                });
             })
+        })
+    },
+    //编辑发件人
+    editSender(e) {
+        let id = e.currentTarget.dataset.id;
+        deliveryService.getCurrSender(id, deliveryConfig.senderList);
+        //获得当前发件人并发送给编辑页面
+        wx.navigateTo({
+            url: '/pages/edit_sender/edit?id=' + id
         })
     }
 })

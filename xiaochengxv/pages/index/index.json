@@ -1,3 +1,7 @@
 {
-  "navigationBarTitleText":"首页"
+    "navigationBarTitleText": "首页",
+    "usingComponents": {
+        "swiper-comp": "../../components/swiper_comp/swiper",
+        "latest-pkg":"../../components/latest_pkglist/latest_pkglist"
+    }
 }

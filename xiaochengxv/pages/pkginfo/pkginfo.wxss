@@ -38,17 +38,20 @@
 }
 .info-item input {
     text-align: right;
-    margin-right: 30px;
 }
 .item-text{
     text-align: right;
+    flex: 1;
 }
 .info-item picker, .info-item input {
-    display: flex;
     justify-content: flex-end;
     flex-direction: row;
+    flex: 1;
+    width: 100%;
 }
-
+.info-item .picker{
+    width: 100%;
+}
 .default-text {
     color: #666;
 }
@@ -57,9 +60,9 @@
     border-top: none;
 }
 
-.info-item >text {
+/* .info-item >text {
     width: 45%;
-}
+} */
 .pinzhong{
     height: 44px;
     line-height: 44px;

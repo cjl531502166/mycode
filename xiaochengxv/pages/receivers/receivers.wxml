@@ -10,12 +10,12 @@
     <view class='receiver-list'>
         <radio-group class="radio-group" bindchange="addressChange">
             <view wx:for='{{deliveryConfig.receiverList}}' wx:key='{{item.id}}' class='receiver-info'>
-                <view class='rc-info-item'>
+                <view bindtouchend='editReceiver' data-id='{{item.id}}' class='rc-info-item'>
                     <view>
                         <text class='rc-name'>{{item.name}}</text>
-                        <text class='rc-addr'>{{item.province}} {{item.city}} {{item.address}} {{item.cellphone}}</text>
+                        <text class='rc-addr'>{{item.province}} {{item.city}} {{item.county}} {{item.address}} {{item.cellphone}}</text>
                     </view>
-                    <icon data-id='{{index}}' class='iconfont wx-icon-bianji'></icon>
+                    <icon class='iconfont wx-icon-bianji'></icon>
                 </view>
                 <view class='rc-info-item'>
                     <label class="radio">

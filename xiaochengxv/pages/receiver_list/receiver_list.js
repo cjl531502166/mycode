@@ -20,7 +20,7 @@ Page({
     },
     getCurrReceiver(e) {
         let id = e.currentTarget.dataset.id;
-        deliveryService.getCurrReiceiver(id, deliveryConfig.receiverList)
+        deliveryService.getCurrReceiver(id, deliveryConfig.receiverList)
         wx.redirectTo({
             url: '/pages/delivery/delivery'
         })

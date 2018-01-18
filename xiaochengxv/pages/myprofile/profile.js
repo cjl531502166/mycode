@@ -1,5 +1,6 @@
 // pages/myprofile/profile.js
 const app = getApp();
+import One from '../../utils/one.js';
 Page({
     /**
      * 页面的初始数据
@@ -10,10 +11,10 @@ Page({
 
 
     onLoad: function () {
-        let email = wx.getStorageSync('email');
-        app.globalData.userInfo.email = email;
-        this.setData({
-            "userInfo": app.globalData.userInfo
+        One.ajax('user/info',{},res =>{
+            this.setData({
+                "userInfo": res.data.data
+            })
         })
     },
     editEmail(){

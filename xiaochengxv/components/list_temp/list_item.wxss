@@ -1,10 +1,12 @@
 /* components/list_temp/list_item.wxss */
 
 /* 包裹列表样式 */
-navigator{
+
+navigator {
     margin: 0 -15px;
     padding: 0 15px;
 }
+
 .list-item {
     display: flex;
     flex-direction: column;
@@ -25,7 +27,8 @@ navigator{
 .li-item-1 {
     font-size: 14px;
     color: #666;
-    margin: 4px 0;
+    margin: 4px 0 0 0;
+    height: 27px;
 }
 
 .li-item-1 view {
@@ -34,7 +37,7 @@ navigator{
 }
 
 .li-item-1 view:first-child {
-    margin-right: 50px;
+    margin-right: 20px;
 }
 
 .li-item-1 icon {
@@ -50,7 +53,8 @@ navigator{
 
 .icon-status {
     font-size: 12px;
-    padding: 0 8px;
+    text-align: center;
+    width: 60px;
     line-height: 22px;
     border-radius: 22px;
 }
@@ -59,10 +63,12 @@ navigator{
     color: #fff;
     background: #ffa401;
 }
-.icon-status-ok{
+
+.icon-status-ok {
     color: #fff;
     background: #66b109;
 }
+
 .li-item-2 text {
     font-size: 12px;
     color: #666;

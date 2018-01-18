@@ -1,30 +1,45 @@
 // pages/add_sender/add.js
 import M from '../../components/modals/common.js';
+import deliveryConfig from '../../models/delivery.config.js';
+import deliveryService from '../../services/delivery.service.js';
+import One from '../../utils/one.js';
+import Geo from '../../components/modals/getCity.js';
 const app = getApp();
 Page({
-
     /**
      * 页面的初始数据
      */
     data: {
-        sender: '',
-        contact: '',
-        street: '',
+        name: '',
+        cellphone: '',
+        address: '',
         houseNo: '',
-        postCode: '',
+        postnumber: '',
         extraInfo: '',
         city: '',
         country: 'Germany',
         saveAddr: true,
         fromPage: null
     },
-
     onLoad: function (options) {
+        let that = this;
         this.setData({
             "fromPage": options.page ? options.page : null
+        });
+        Geo.getLocation({
+            success: data => {
+                Geo.getCity(data, (res) => {
+
+                    that.setData({
+                        city: res.data.result.addressComponent.city,
+                        country: res.data.result.addressComponent.country,
+                        street: res.data.result.addressComponent.street,
+                        address: res.data.result.formatted_address
+                    })
+                })
+            }
         })
     },
-
     onShow: function () {
 
     },
@@ -35,17 +50,17 @@ Page({
             M._alert('发件人姓名必须是英文')
             return
         }
-        this.data.sender = e.detail.value;
+        this.data.name = e.detail.value;
     },
     getTel(e) {
         let regxPhone = /^1[34578]\d{9}$/,
-            regxTel = /^(([0\+]\d{2,3})?(0\d{2,3}))(\d{7,8})((\d{3,}))?$/,
+            regxTel = /^(\+49|0049)?\s*(\d{3,4})(\d{6,7})$/,
             tel = e.detail.value;
-        if (tel && !(regxPhone.test(tel) || regxTel.test(tel))) {
-            M._alert('固话或者手机号码格式不正确\n，固话请加区号');
+        if (tel && !(regxTel.test(tel))) {
+            M._alert('固话或者手机号码格式不正确');
             return;
         }
-        this.data.contact = e.detail.value;
+        this.data.cellphone = e.detail.value;
     },
     getStreet(e) {
         let reg = /[a-zA-Z]/,
@@ -54,7 +69,7 @@ Page({
             M._alert('街道信息必须为英文')
             return
         }
-        this.data.street = e.detail.value
+        this.data.address = e.detail.value;
     },
     getHouseNo(e) {
         let val = e.detail.value.replace(/\s/ig, '');
@@ -70,7 +85,7 @@ Page({
             M._alert('邮政编码必须位5位数字')
             return
         }
-        this.data.postCode = e.detail.value
+        this.data.postnumber = e.detail.value
     },
     getCity(e) {
         let val = e.detail.value,
@@ -86,19 +101,15 @@ Page({
     },
     saveHandle() {
         let senderInfo = '';
-        if (this.data.sender == '') {
+        if (this.data.name == '') {
             M._alert('请填写发件人');
             return
         }
-        if (this.data.street == '') {
-            M._alert('请填写街道信息');
+        if (this.data.address == '') {
+            M._alert('请填写详细地址');
             return
         }
-        if (this.data.houseNo == '') {
-            M._alert('请填写门牌号');
-            return
-        }
-        if (this.data.postCode == '') {
+        if (this.data.postnumber == '') {
             M._alert('请填写邮政编码');
             return
         }
@@ -107,29 +118,38 @@ Page({
             return
         }
         senderInfo = {
-            "sender": this.data.sender,
-            "contact": this.data.contact,
-            "postCode": this.data.postCode,
-            "address": this.data.extraInfo + ' ' + this.data.houseNo + ' ' + this.data.street + ' ' + this.data.city + ' ' + this.data.country,
-            "default": this.data.saveAddr,
+            "name": this.data.name,
+            "cellphone": this.data.cellphone,
+            "postnumber": this.data.postnumber,
+            "county": "county",
+            "province": "province",
+            "country": this.data.country,
+            "city": this.data.city,
+            "address": this.data.address,
+            "asdefault": this.data.saveAddr,
         }
         if (this.data.fromPage == 'order') {
-            app.globalData.currSender = senderInfo
-            if (this.data.saveAddr) {
-                app.globalData.senderList.forEach((item, index, array) => {
-                    array.default = false;
-                })
-                // 发ajax 请求然后回到下单页面
-            } else {
-                wx.navigateTo({
-                    url: '/pages/delivery/delivery'
-                })
-            }
+            deliveryService.addSender('user/sender-add', senderInfo, res => {
+                if (!res.data.code) {
+                    senderInfo.id = res.data.data.id;
+                    deliveryConfig.currSender = senderInfo;
+                    wx.navigateTo({
+                        url: '/pages/delivery/delivery'
+                    })
+                } else {
+                    One.showError(res.data.msg);
+                }
+            })
         } else {
-            wx.navigateTo({
-                url: '/pages/sender/sender'
+            deliveryService.addSender('user/sender-add', senderInfo, res => {
+                if (!res.data.code) {
+                    wx.navigateTo({
+                        url: '/pages/sender/sender'
+                    })
+                } else {
+                    One.showError(res.data.msg);
+                }
             })
         }
-
     }
 })
