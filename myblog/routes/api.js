@@ -1,4 +1,6 @@
 var express = require('express');
+// 文件上传中间件
+var upload = require('multer')({ dest: './public/images/upload' });
 var router = express.Router();
 var User = require('../models/User');
 var Category = require('../models/Category');
@@ -259,5 +261,8 @@ router.post('/content/delete', function (req, res) {
   }
 })
 
-//图片上传接口
+//文件头像接口
+router.post('/user/avatar', upload.single('avatar'),(req,res)=>{
+  console.log(req.file);
+})
 module.exports = router;

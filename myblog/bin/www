@@ -87,7 +87,7 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  mongoose.connect('mongodb://chenjiulin:chenjiulin_9085@localhost:27017/admin',{useMongoClient:true},function (err) {
+  mongoose.connect('mongodb://chenjiulin:chenjiulin_9085@www.jolin90.com:27017/admin',{useMongoClient:true},function (err) {
     if(err) {
       console.log(err)
     }else{
