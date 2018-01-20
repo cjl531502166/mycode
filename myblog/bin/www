@@ -7,7 +7,14 @@
 var app = require('../app');
 var debug = require('debug')('myblog:server');
 var https = require('https');
-var mongoose  = require('mongoose');
+var fs = require('fs');
+var dv_key = fs.readFileSync('./keys/DV_pem.key');
+var dv_crt = fs.readFileSync('./keys/Dv_cert.crt');
+var options = {
+  key: dv_key,
+  cert: dv_crt
+}
+var mongoose = require('mongoose');
 mongoose.Promise = require("bluebird");
 /**
  * Get port from environment and store in Express.
@@ -20,7 +27,7 @@ app.set('port', port);
  * Create https server.
  */
 
-var server = https.createServer(app);
+var server = https.createServer(options,app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -87,10 +94,10 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  mongoose.connect('mongodb://chenjiulin:chenjiulin_9085@127.0.0.1:27017/admin',{useMongoClient:true},function (err) {
-    if(err) {
+  mongoose.connect('mongodb://chenjiulin:chenjiulin_9085@127.0.0.1:27017/admin', { useMongoClient: true }, function (err) {
+    if (err) {
       console.log(err)
-    }else{
+    } else {
       debug('Listening on ' + bind);
     }
   })
