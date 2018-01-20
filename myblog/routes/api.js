@@ -39,7 +39,7 @@ router.post('/login', function (req, res) {
             'uid': userInfo._id,
             'username': userInfo.username
           },
-          { "maxAge": 1000 * 60 * 600 })
+          { "maxAge": 1000 * 60 * 600 });
       } else {
         res.cookie('userInfo', {
           'uid': userInfo._id,
@@ -52,7 +52,7 @@ router.post('/login', function (req, res) {
         'username': userInfo.username
       };
     }
-    res.json(responseData)
+    res.json(responseData);
   })
 });
 
