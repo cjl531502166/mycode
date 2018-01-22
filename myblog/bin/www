@@ -8,8 +8,8 @@ var app = require('../app');
 var debug = require('debug')('myblog:server');
 var https = require('https');
 var fs = require('fs');
-var dv_key = fs.readFileSync('./keys/DV_pem.key');
-var dv_crt = fs.readFileSync('./keys/Dv_cert.crt');
+var dv_key = fs.readFileSync('./keys/DV_pem.key','utf-8');
+var dv_crt = fs.readFileSync('./keys/Dv_cert.crt', 'utf-8');
 var options = {
   key: dv_key,
   cert: dv_crt
@@ -20,7 +20,7 @@ mongoose.Promise = require("bluebird");
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '80');
+var port = normalizePort(process.env.PORT || '443');
 app.set('port', port);
 
 /**
