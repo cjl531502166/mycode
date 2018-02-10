@@ -7,7 +7,8 @@
 <div class="layui-body" style='padding:15px;'>
     <h2 class="content-title">完善个人资料</h2>
     <hr class="layui-bg-red">
-    <form class="layui-form layui-form-pane" action="" style="width:80%;margin-top:30px;">
+    <form class="layui-form layui-form-pane" action="" style="width:80%;margin-top:30px;" enctype="multipart/form-data">
+        <input type="hidden" name="uid" value="{{userInfo.uid}}">
         <div class="layui-form-item">
             <label class="layui-form-label">昵称</label>
             <div class="layui-input-block">
@@ -16,14 +17,15 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">上传头像</label>
-            <button style="margin-left:20px;" type="button" class="layui-btn" id="uploadHdpic">
-                <i class="layui-icon">&#xe67c;</i>点击上传
-            </button>
+            <label style="margin-left:20px;" type="button" class="layui-btn" id="uploadHdpic">
+                <i class="layui-icon">&#xe67c;</i>选择文件
+                <input type="file" name="avatar">
+            </label>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">从事行业</label>
             <div class="layui-input-block">
-                <input type="text" name="nickname" placeholder="请输入从事行业" required lay-verify="required" class='layui-input'>
+                <input type="text" name="job" placeholder="请输入从事行业" required lay-verify="required" class='layui-input'>
             </div>
         </div>
         <div class="layui-form-item">

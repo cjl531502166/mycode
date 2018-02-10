@@ -1,14 +1,13 @@
-
 //注册layui 模块
-layui.use(['form', 'element', 'table','upload'],function () {
+layui.use(['form', 'element', 'table', 'upload'], function () {
     //模块加载
     var mod_config = {
-        form:layui.form,
-        element:layui.element,
-        table:layui.table,
+        form: layui.form,
+        element: layui.element,
+        table: layui.table,
         upload: layui.upload,
         editorInit: function (ele) {
-            if(!$(ele)[0]) return false;
+            if (!$(ele)[0]) return false;
             window.editor = new window.wangEditor(ele);
             editor.customConfig.zIndex = 100;
             editor.create();
@@ -17,11 +16,11 @@ layui.use(['form', 'element', 'table','upload'],function () {
     //初始化编辑器
     mod_config.editorInit('#Editor');
     //删除操作
-    var runDel = function (selector,eledel,apiurl) {
+    var runDel = function (selector, eledel, apiurl) {
         var delBtn = $(selector);
-        delBtn.on('click',function () {
-            var that = this,id = $(that).data('id');
-            layer.alert('确定删除？',function (index) {
+        delBtn.on('click', function () {
+            var that = this, id = $(that).data('id');
+            layer.alert('确定删除？', function (index) {
                 $.ajax({
                     url: '/' + apiurl,
                     type: 'POST',
@@ -40,14 +39,14 @@ layui.use(['form', 'element', 'table','upload'],function () {
         })
     }
     //分类操作
-    var operatCate = function (submitOption,ajaxApi,ajaxType) {
-        mod_config.form.on('submit('+submitOption+')',function (data) {
+    var operatCate = function (submitOption, ajaxApi, ajaxType) {
+        mod_config.form.on('submit(' + submitOption + ')', function (data) {
             var loadIndex = layer.load(1, { shade: [0.4, '#fff'] });
             $.ajax({
-                url:ajaxApi,
-                type:ajaxType,
-                data:data.field,
-                success:function (res) {
+                url: ajaxApi,
+                type: ajaxType,
+                data: data.field,
+                success: function (res) {
                     if (res.code == 0) {
                         window.location.href = '/admin/page?pid=pageId_1'
                     } else {
@@ -60,22 +59,22 @@ layui.use(['form', 'element', 'table','upload'],function () {
         })
     }
     //内容操作
-    var operateContent = function (submitOption,ajaxApi,ajaxType) {
-        mod_config.form.on('submit('+submitOption+')',function (data) {
+    var operateContent = function (submitOption, ajaxApi, ajaxType) {
+        mod_config.form.on('submit(' + submitOption + ')', function (data) {
             var loadIndex = layer.load(1, { shade: [0.4, '#fff'] })
-            ,postData = {
-                title: data.field.title,
-                content: editor.txt.html(),
-                descrip: data.field.descp,
-                category: data.field.category,
-                id:data.field.id
-            }
+                , postData = {
+                    title: data.field.title,
+                    content: editor.txt.html(),
+                    descrip: data.field.descp,
+                    category: data.field.category,
+                    id: data.field.id
+                }
             $.ajax({
-                url:ajaxApi,
-                type:ajaxType,
+                url: ajaxApi,
+                type: ajaxType,
                 data: postData,
-                dataType:'json',
-                success:function (res) {
+                dataType: 'json',
+                success: function (res) {
                     if (res.code == 0) {
                         window.location.href = '/admin/page?pid=pageId_3'
                     } else {
@@ -104,7 +103,7 @@ layui.use(['form', 'element', 'table','upload'],function () {
         })
         return false;
     });
-    
+
     //退出登录
     $('#logOut').on('click', function () {
         $.post('/api/logout', {}, function (data) {
@@ -113,19 +112,19 @@ layui.use(['form', 'element', 'table','upload'],function () {
     });
 
     //注册
-    mod_config.form.on('submit(formRegister)',function (data) {
+    mod_config.form.on('submit(formRegister)', function (data) {
         var loadIndex = layer.load(1, { shade: [0.4, '#fff'] });
         $.ajax({
-            url:'/api/register',
-            type:'post',
-            dataType:'json',
-            data:data.field,
-            success:function (result) {
+            url: '/api/register',
+            type: 'post',
+            dataType: 'json',
+            data: data.field,
+            success: function (result) {
                 layer.close(loadIndex);
-                if(result.code !=0){
+                if (result.code != 0) {
                     layer.msg(result.message);
-                }else{
-                    window.location.href= '/admin/index';
+                } else {
+                    window.location.href = '/admin/index';
                 }
             }
         })
@@ -134,15 +133,24 @@ layui.use(['form', 'element', 'table','upload'],function () {
     //用户删除
     runDel('.delUser', 'tr', 'api/user/delete');
 
-    //资料更新
-    mod_config.form.on('submit(editInfo)',function (data) {
-        console.log(data.field);
-    })
+    // //资料更新
+    // mod_config.form.on('submit(editInfo)', function (data) {
+    //     $.ajax({
+    //         url: '/api/user/profile',
+    //         type: 'POST',
+    //         data: JSON.stringify(data.field),
+    //         dataType: 'json',
+    //         success: res => {
+    //             console.log(res);
+    //         }
+    //     });
+    //     return false;
+    // })
 
     //设置管理员
-    $('#setAdmin').on('click',function () {
+    $('#setAdmin').on('click', function () {
         var id = $(this).data('id'), user = $(this).data('user');
-        layer.alert("确定将用户&nbsp;" + "<span class='text-red'>"+user+"</span>" + "&nbsp;设置为管理员吗", function (index) {
+        layer.alert("确定将用户&nbsp;" + "<span class='text-red'>" + user + "</span>" + "&nbsp;设置为管理员吗", function (index) {
             $.ajax({
                 url: '/api/user/set',
                 type: 'POST',
@@ -156,24 +164,25 @@ layui.use(['form', 'element', 'table','upload'],function () {
         })
     })
     //上传头像
-    mod_config.upload.render({
-        elem:'#uploadHdpic',
-        url:'/api/user/avatar',
-        accept: 'file',
-        field:'avatar',
-        before:function (res) {
-            
-        }
-    })
+    // mod_config.upload.render({
+    //     elem:'#uploadHdpic',
+    //     url:'/api/user/avatar',
+    //     accept: 'file',
+    //     field:'avatar',
+    //     done:function (res) {
+    //         layer.msg(res.message);
+    //         $('#headImg').attr('src',res.url);
+    //     }
+    // })
     //分类添加
-    operatCate('addCate','/api/category/add','POST');
+    operatCate('addCate', '/api/category/add', 'POST');
     // 分类修改
     operatCate('editCate', '/api/category/edit', 'POST')
     //分类删除
-    runDel('.delCate', 'tr','api/category/delete');
-    
+    runDel('.delCate', 'tr', 'api/category/delete');
+
     //内容添加
-    operateContent('addContent','/api/content/add','POST');
+    operateContent('addContent', '/api/content/add', 'POST');
     //内容修改
     operateContent('editContent', '/api/content/edit', 'POST');
     //内容删除

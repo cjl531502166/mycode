@@ -1,8 +1,11 @@
 var express = require('express');
 // 文件上传中间件
-var upload = require('multer')({ dest: './public/images/upload' });
+var multer = require('multer');
+var upload = multer({ dest:'./public/images/upload'});
+var fs = require('fs');
 var router = express.Router();
 var User = require('../models/User');
+var userProfile = require('../models/userInfo');
 var Category = require('../models/Category');
 var Content = require('../models/Content');
 var responseData;
@@ -17,8 +20,8 @@ router.use(function (req, res, next) {
 //登陆后台
 router.post('/login', function (req, res) {
   var username = req.body.username,
-      password = req.body.password,
-      keeplogin = req.body.keeplogin == 'on' ? true : false;
+    password = req.body.password,
+    keeplogin = req.body.keeplogin == 'on' ? true : false;
   var reg = new RegExp("[^a-zA-Z0-9\_\u4e00-\u9fa5]", "i");
   if (reg.test(username) == true || reg.test(password) == true) {
     responseData.code = 1;
@@ -57,20 +60,20 @@ router.post('/login', function (req, res) {
 });
 
 //用户注册
-router.post('/register',function (req,res) {
+router.post('/register', function (req, res) {
   var username = req.body.username,
-      password = req.body.password,
-      repassword = req.body.repassword;
-  if (password != repassword){
+    password = req.body.password,
+    repassword = req.body.repassword;
+  if (password != repassword) {
     responseData.code = 1;
     responseData.message = '两次密码输入不一致';
     res.json(responseData);
     return;
   }
   User.findOne({
-    username:username
+    username: username
   }).then(function (user) {
-    if (user){
+    if (user) {
       responseData.code = 2;
       responseData.message = '该用户已经注册';
       res.json(responseData);
@@ -88,7 +91,7 @@ router.post('/register',function (req,res) {
       responseData.message = '注册成功';
       res.json(responseData);
     });
-  }).catch(err =>{
+  }).catch(err => {
     console.log(err);
   })
 })
@@ -151,34 +154,34 @@ router.post('/category/edit', function (req, res) {
     responseData.code = 1;
     res.json(responseData);
   } else {
-    Category.findById(id).then(category =>{
-      if(!category){
+    Category.findById(id).then(category => {
+      if (!category) {
         responseData.message = '分类已经被删除';
         responseData.code = 2;
-      }else{
-        if (category.name == name){
+      } else {
+        if (category.name == name) {
           responseData.message = '修改成功';
           res.json(responseData);
           return Promise.reject();
-        }else{
+        } else {
           return Category.findOne({
-            _id:{$ne:id},
+            _id: { $ne: id },
             name: name
           })
         }
       }
-    }).then(sameCategory =>{
-      if(sameCategory){
+    }).then(sameCategory => {
+      if (sameCategory) {
         responseData.code = 3;
         responseData.message = '已存在同名分类';
         res.json(responseData);
         return Promise.reject();
-      }else{
-        return Category.update({ _id: id }, { name: name});
+      } else {
+        return Category.update({ _id: id }, { name: name });
       }
     }).then(function (newCate) {
-        responseData.message = '修改成功';
-        res.json(responseData);
+      responseData.message = '修改成功';
+      res.json(responseData);
     })
   }
 })
@@ -229,8 +232,8 @@ router.post('/content/add', function (req, res) {
   })
 })
 //修改内容接口
-router.post('/content/edit',(req,res) =>{
-  if(req.body.content == ''){
+router.post('/content/edit', (req, res) => {
+  if (req.body.content == '') {
     responseData.message = '文章内容不能为空';
     responseData.code = 1;
     res.json(responseData);
@@ -256,13 +259,27 @@ router.post('/content/delete', function (req, res) {
   } else {
     Content.remove({ _id: req.body.id }).then(function (doc) {
       responseData.message = '删除成功';
-      res.json(responseData);
     })
   }
+  res.json(responseData);
 })
 
-//文件头像接口
-router.post('/user/avatar', upload.single('avatar'),(req,res)=>{
-  console.log(req.file);
-})
+//上传头像接口
+router.post('/user/profile', upload.array(), (req, res) => {
+  console.log(req.body);
+  // var ext = req.file.originalname.replace(/^.+\./, '');
+  // if(['png','jpg','jpeg'].indexOf(ext) == -1){
+  //   fs.unlinkSync(req.file.path);
+  //   responseData.message = '文件格式非法';
+  //   responseData.code = 1;
+  // }else{
+  //   responseData.message = '上传成功';
+  //   var tempPath = req.file.path;
+  //   var newPath = tempPath.replace(/\\/g,'/').replace('public','');
+  //   responseData.url = newPath;
+  // }
+  // res.json(responseData);
+});
+
+//上传资料接口
 module.exports = router;

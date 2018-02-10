@@ -57,3 +57,10 @@
 .operation{
     width: 150px;
 }
+.layui-btn{
+    position: relative;
+}
+.layui-btn input{
+    position: absolute;
+    visibility: hidden;
+}
